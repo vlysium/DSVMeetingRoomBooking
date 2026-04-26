@@ -3,11 +3,10 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace DSVMeetingRoomBooking.Pages
 {
-    public class IndexModel : PageModel
+    public class BookingsModel : PageModel
     {
         public void OnGet()
         {
-
         }
     }
 }
