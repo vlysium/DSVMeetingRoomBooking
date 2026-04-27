@@ -59,7 +59,10 @@ html {
         max-width: 95%!important;
     }
 }
-
+/*col-md-3.border-end.bg-light {
+    border-right-color: orange !important;
+    border-right-width: thin !important;
+}*/
 
     .index-grid {
         display: grid;
