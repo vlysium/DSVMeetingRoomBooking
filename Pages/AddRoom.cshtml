@@ -21,7 +21,8 @@
             {
                 <div class="form-check">
                     @* The 'name' attribute is the secret sauce here *@
-                    <input class="form-check-input"
+                    <input asp-for="MeetingRoom.Equipment" class="form-control" placeholder="Equipment">
+                        class="form-check-input"
                            type="checkbox"
                            name="MeetingRoom.Equipment"
                            value="@item"
