@@ -9,18 +9,3 @@
   <h1 class="display-4">Welcome</h1>
   <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
-
-<div>
-    @foreach (MeetingRoom room in Model.MeetingRooms)
-    {
-    <div class="card" style="width: 18rem;">
-        <img src="..." class="card-img-top" alt="...">
-        <div class="card-body">
-            <h5 class="card-title">@room.Name</h5>
-            <p class="card-text">@room.Capacity @room.Description @room.Equipment</p>
-            <a asp-for="/CreateBooking" class="btn btn-primary">Book</a>
-        </div>
-    </div>
-    }
-    
-</div>

@@ -25,7 +25,7 @@ namespace DSVMeetingRoomBooking.Repositories
 			if (File.Exists(path))
 			{
 				string json = File.ReadAllText(path);
-				bookings = JsonSerializer.Deserialize<List<Booking>>(json)!;
+				bookings = JsonSerializer.Deserialize<List<Booking>>(json);
 			}
 		}
 
