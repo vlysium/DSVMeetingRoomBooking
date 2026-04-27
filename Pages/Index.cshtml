@@ -9,4 +9,17 @@
   <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
 
-Hej , det er saif
+<div>
+    @foreach (var room in Models.MeetingRoom)
+    {
+    <div class="card" style="width: 18rem;">
+        <img src="..." class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text"></p>
+            <a asp-for="/CreateBooking" class="btn btn-primary">Book</a>
+        </div>
+    </div>
+    }
+    
+</div>
