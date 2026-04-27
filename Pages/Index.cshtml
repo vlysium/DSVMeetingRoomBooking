@@ -5,79 +5,55 @@
   ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
-  <h1 class="display-4">Meeting Rooms</h1> 
-</div>
-
-<div class="index-grid">
-    @foreach (var room in Model.MeetingRooms)
-    {
-        <div class="card mb-3" style="max-width: 600px;">
-            <div class="row g-0 align-items-center">
-                <div class="col-md-4">
-                    <img src="~/images/room.jpg" class="img-fluid rounded-start" alt="Room Image"
-                         style="object-fit: cover; height: 100%; min-height: 200px;" />
-                </div>
-                <div class="col-md-8">
-                    <div class="card-body">
-                        <h5 class="card-title">@room.Name</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">Capacity: @room.Capacity</h6>
-
-                        <p class="card-text">
-                            <strong>Equipment:</strong>
-                            @if (room.Equipment != null && room.Equipment.Any())
-                            {
-                                @string.Join(", ", room.Equipment)
-                            }
-                            else
-                            {
-                                <span>None</span>
-                            }
-                        </p>
-
-                        <p class="card-text">@room.Description</p>
-                        <a asp-page="./CreateBooking" asp-route-id="@room.RoomId" class="btn btn-primary">Book</a>
-                    </div>
-                </div>
+<div class="container-fluid mt-4">
+    <div class="row">
+        <div class="col-md-3 border-end bg-light">
+            <div class="p-4">
+                <h3>Filters</h3>
+                <p>SEARCH FILTERS COMING UP</p>
             </div>
         </div>
-    }
-</div>
 
-
-
-
-@* 
-@foreach (var room in Model.MeetingRooms)
-{
-    <div class="card" style="width: 18rem; margin-bottom: 10px;">       
-        <div class="card-body">
-            <div class="grid-container-card">
-                <div >
-                    <img src="~/images/room.jpg" alt="Alternate Text" />                     
-                </div>
-                <div>
-                    <h5 class="card-title">@room.Name</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Capacity: @room.Capacity</h6>
-
-                    <p class="card-text">
-                        <strong>Equipment:</strong>
-                        @if (room.Equipment != null && room.Equipment.Any())
-                        {
-                            @string.Join(", ", room.Equipment)
-                        }
-                        else
-                        {
-                            <span>None</span>
-                        }
-                    </p>
-
-                    <p class="card-text">@room.Description</p>
-                    <a asp-page="./CreateBooking" asp-route-id="@room.RoomId" class="btn btn-primary">Book</a>
-                </div>
+        <div class="col-md-9">
+            <div class="text-md-start mb-4 ps-3">
+                <h1 class="display-4">Meeting Rooms</h1>
             </div>
-            
-            
+
+            <div class="index-grid d-flex flex-wrap justify-content-start gap-3">
+                @foreach (var room in Model.MeetingRooms)
+                {
+                    <div class="card mb-3 shadow-sm" style="flex: 0 1 500px;">
+                        <div class="row g-0 align-items-center">
+                            <div class="col-md-4">
+                                <img src="~/images/room.jpg" class="img-fluid rounded-start" alt="Room Image"
+                                     style="object-fit: cover; height: 200px;" />
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">@room.Name</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">Capacity: @room.Capacity</h6>
+
+                                    <p class="card-text">
+                                        <strong>Equipment:</strong>
+                                        @if (room.Equipment != null && room.Equipment.Any())
+                                        {
+                                            @string.Join(", ", room.Equipment)
+                                        }
+                                        else
+                                        {
+                                            <span>None</span>
+                                        }
+                                    </p>
+
+                                    <p class="card-text text-truncate" style="max-height: 50px;">@room.Description</p>
+                                    <a asp-page="./CreateBooking" asp-route-id="@room.RoomId" class="btn btn-primary">Book Now</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
         </div>
     </div>
-} *@
+</div>
+   

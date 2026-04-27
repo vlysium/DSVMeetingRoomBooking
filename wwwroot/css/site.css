@@ -8,10 +8,10 @@ html {
 html, body {
     height: 100%;
 }
-/*body{
+body{
     padding:0;
     margin:0;
-}*/
+}
 
 @media (min-width: 768px) {
   html {
@@ -53,23 +53,54 @@ html {
 
 
 /* INDEX PAGE ___________________________________________________________________________________*/
-.index-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(550px, 100%), 1fr));
-    gap: 20px;
-    padding: 40px;
-    max-width: 1300px;
-    margin: 0 auto;
+
+@media (min-width: 768px) {
+    .container, .container-md, .container-sm {
+        max-width: 95%!important;
+    }
 }
 
-img {
+
+    .index-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(min(400px, 100%), 1fr));
+        gap: 15px;
+        padding: 30px;
+        max-width: 100%;
+        margin: 0 auto;
+    }
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+/*TEST CODE TO OVERRIDE BOOTSTAP*/
+
+/* First: Force them to be stacked (Mobile View) */
+/*.custom-breakpoint-row .col-md-2,
+.custom-breakpoint-row .col-md-10 {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+}*/
 
-}
+/* Second: Define exactly when they should jump to side-by-side */
+/*@media (min-width: 1100px) {*/ /* Change 1100px to your preferred "magic number" */
+    /*.custom-breakpoint-row {
+        display: flex;
+        flex-wrap: nowrap;
+    }
 
-/*FOOTER_______________________________________*/
-footer{
-    background-color: var(--color-blue);    
-}
+        .custom-breakpoint-row .col-md-2 {
+            width: 16.66%;*/ /* Equivalent to col-2 */
+        /*}
+
+        .custom-breakpoint-row .col-md-10 {
+            width: 83.33%;*/ /* Equivalent to col-10 */
+        /*}
+}*/
+
+    /*FOOTER_______________________________________*/
+    footer {
+        background-color: var(--color-blue);
+    }
