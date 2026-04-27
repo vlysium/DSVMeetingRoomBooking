@@ -10,7 +10,7 @@ namespace DSVMeetingRoomBooking.Models
         /// <summary>
         /// The unique identifier for the employee
         /// </summary>
-        public string EmployeeCPR { get; set; }
+        public string EmployeeId { get; set; }
 
 		
 		/// <summary>

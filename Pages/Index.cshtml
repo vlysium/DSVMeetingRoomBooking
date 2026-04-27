@@ -29,16 +29,14 @@
             </div>
         </div>
 
-        @* <div class="col-md-9">
-            <div class="text-md-start mb-4 ps-3">
-                <h1 class="display-4">Meeting Rooms</h1> *@
+       
         <div class="col-md-9">
             <div class="d-flex align-items-center justify-content-between mb-4 ps-3 pe-5">
                 <h1 class="display-4 mb-0">Meeting Rooms</h1>
                 <div style="width: 100%; max-width: 500px;">
-                    <form class="d-flex">
+                    <form class="d-flex" method="post" asp-page-handler="SearchTerm">
                         <div class="input-group">
-                            <input class="form-control form-control-lg" type="search" placeholder="Search rooms..." aria-label="Search">
+                            <input class="form-control form-control-lg" type="search" placeholder="Search member ID to view bookings" aria-label="Search">
                             <button class="btn btn-primary px-4" type="submit">
                                 <i class="bi bi-search"></i>
                             </button>

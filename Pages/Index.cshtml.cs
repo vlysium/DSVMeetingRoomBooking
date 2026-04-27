@@ -21,6 +21,15 @@ namespace DSVMeetingRoomBooking.Pages
         {
             
         }
+        public IActionResult OnPostSearchTerm(string searchTerm)
+        {
+            if (string.IsNullOrWhiteSpace(searchTerm))
+            {
+                return RedirectToPage("/Index");
+            }
+            return RedirectToPage("/Bookings", new { EmployeeId = searchTerm });
+
+        }
         public IActionResult OnPost()
         {
             return RedirectToPage("/Index");
