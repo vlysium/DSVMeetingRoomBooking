@@ -3,13 +3,13 @@ namespace DSVMeetingRoomBooking.Models
 	public class MeetingRoom
 	{
 
-		private int _RoomId { get; set; }
+		public int RoomId { get; set; }
 		
-        private string _NameOfRoom { get; set; }
+        public string NameOfRoom { get; set; }
 
-		private bool _IsAvailable { get; set; }
+		public bool IsAvailable { get; set; }
 
-		private int _Capacity { get; set; }
+		public int Capacity { get; set; }
 
 
 		public MeetingRoom()
