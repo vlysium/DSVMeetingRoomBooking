@@ -6,15 +6,9 @@ namespace DSVMeetingRoomBooking.Repositories
 {
 	public class MeetingRoomRepository: IMeetingRoomRepository
     {
-		private readonly string _filePath = @"Data/MeetingRooms.json";
+		private readonly string _filePath = @"/Data/rooms.json";
 
-		private readonly MeetingRoomService _meetingRoomService;
 		private List<MeetingRoom> _meetingRooms;
-
-        public MeetingRoomRepository(MeetingRoomService meetingRoomService)
-		{
-			_meetingRoomService = meetingRoomService;
-        }
 
 		public List<MeetingRoom> GetAllMeetingRooms()
 		{

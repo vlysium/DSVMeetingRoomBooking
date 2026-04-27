@@ -19,4 +19,5 @@ namespace DSVMeetingRoomBooking.Pages
         {
             return RedirectToPage("/Index");
         }
+    }
 }
