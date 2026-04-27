@@ -24,7 +24,7 @@ namespace DSVMeetingRoomBooking.Models
 		//	RoomId = roomid;
 		//	nameOfRoom = nameOfRoom;
 		//	IsAvailable = isavailble;
-		//	_Capacity = capacity;
+		//	Capacity = capacity;
 
 
 
