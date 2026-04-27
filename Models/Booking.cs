@@ -6,6 +6,12 @@ namespace DSVMeetingRoomBooking.Models
 		/// The unique identifier for the booking.
 		/// </summary>
 		public string Id { get; set; }
+
+        /// <summary>
+        /// The unique identifier for the employee
+        /// </summary>
+        public string EmployeeCPR { get; set; }
+
 		
 		/// <summary>
 		/// Reference to the unique identifier of the room being booked.

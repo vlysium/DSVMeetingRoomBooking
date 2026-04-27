@@ -4,7 +4,7 @@ namespace DSVMeetingRoomBooking.Models
     public class MeetingRoom
 	{      
 
-        public int RoomId { get; set; }
+        public string RoomId { get; set; }
 		
         public string Name { get; set; }		
 
@@ -16,15 +16,16 @@ namespace DSVMeetingRoomBooking.Models
 
         public MeetingRoom()
 		{
+			RoomId = Guid.NewGuid().ToString().Substring(0,8);
 		}
 
-		public MeetingRoom(int roomid, string nameOfRoom, int capacity, string description, List<Equipment> equipment)
+		public MeetingRoom(string roomid, string nameOfRoom, int capacity, string description, List<Equipment> equipment)
 		{
 			RoomId = roomid;
 			Name = nameOfRoom;			
 			Capacity = capacity;
 			Description = description;
 			Equipment = equipment;
-        }
+		}
 	}
 }

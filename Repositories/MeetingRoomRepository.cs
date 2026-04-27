@@ -6,7 +6,7 @@ namespace DSVMeetingRoomBooking.Repositories
 {
 	public class MeetingRoomRepository: IMeetingRoomRepository
     {
-		private readonly string _filePath = @"Data/rooms.json";
+		private string _filePath = @"Data/rooms.json";
 
 		private List<MeetingRoom> _meetingRooms;
 
@@ -23,11 +23,12 @@ namespace DSVMeetingRoomBooking.Repositories
         }
 		public void SaveFile()
 		{
-			string json = JsonSerializer.Serialize(_filePath);
+			string json = JsonSerializer.Serialize(_meetingRooms);
             File.WriteAllText(_filePath, json);
         }
+       
 
-		public void AddRoom(MeetingRoom meetingRoom)
+        public void AddRoom(MeetingRoom meetingRoom)
 		{
 			LoadFile();
 			_meetingRooms.Add(meetingRoom);
