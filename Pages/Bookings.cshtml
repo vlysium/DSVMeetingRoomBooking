@@ -1,6 +1,33 @@
 ﻿@page "/bookings"
+@using DSVMeetingRoomBooking.Models
 @model DSVMeetingRoomBooking.Pages.BookingsModel
 @{
 }
 
+<div class="index-grid d-flex flex-wrap justify-content-start gap-3">
+@foreach (Booking booking in Model.Bookings)
+{
+	<div class="card mb-3 shadow-sm" style="flex: 0 1 500px;">
+		<div class="row g-0 align-items-center">
+			<div class="col-md-4">
+				<img src="~/images/room.jpg" class="img-fluid rounded-start" alt="Room Image" />
+			</div>
+			<div class="col-md-8">
+				<div class="card-body position-relative">
+					<h2>
+					@for (int i = 0; i < Model.MeetingRooms.Count; i++)
+					{
+						if (Model.MeetingRooms[i].RoomId == booking.RoomId)
+						{
+							@Model.MeetingRooms[i].Name
+						}
+					}
+					</h2>
+					<h3 class="card-title pe-5 fs-5">@booking.Comment</h3>
+				</div>
+			</div>
+		</div>
+	</div>
+}
+</div>
 

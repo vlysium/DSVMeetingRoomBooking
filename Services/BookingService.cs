@@ -39,6 +39,20 @@ namespace DSVMeetingRoomBooking.Services
 			return _bookingRepository.GetById(bookingId);
 		}
 
+		public List<Booking> GetBookingsByEmployeeId(string employeeId)
+		{
+			List<Booking> allBookings = _bookingRepository.GetAll();
+			List<Booking> employeeBookings = new List<Booking>();
+			for (int i = 0; i < allBookings.Count; i++)
+			{
+				if (allBookings[i].EmployeeId == employeeId)
+				{
+					employeeBookings.Add(allBookings[i]);
+				}
+			}
+			return employeeBookings;
+		}
+
 		/// <summary>
 		/// Creates a new booking and adds it to the repository.
 		/// </summary>
