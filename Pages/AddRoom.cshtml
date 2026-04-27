@@ -5,19 +5,22 @@
 
 <form method="post">
     <div class="mb-3">
-        <label for="exampleFormControlInput1" class="form-label">Name</label>
-        <input type="text" class="form-control" id="">
+        <label for="exampleFormControlInput1" class="form-label">Name</label>        
+        <input asp-for="MeetingRoom.Name" class="form-control" placeholder="Name">
+        <span asp-validation-for="MeetingRoom.Name" class="text-danger"></span>
     </div>
     <div class="mb-3">
-        <label for="exampleFormControlInput1" class="form-label">Capacity</label>
-        <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="Input number">
+        <input asp-for="MeetingRoom.Capacity" class="form-control" placeholder="Capacity">
+        <span asp-validation-for="MeetingRoom.Capacity" class="text-danger"></span>
     </div>
     <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">Equipment</label>
-        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Input equipment">
+        <input asp-for="MeetingRoom.Name" class="form-control" placeholder="Equipment">
+        <span asp-validation-for="MeetingRoom.Equipment" class="text-danger"></span>
     </div>
     <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">Description</label>
-        <input type="text" class="form-control" id="exampleFormControlInput1">
+        <input asp-for="MeetingRoom.Description" class="form-control" placeholder="Name">
+        <span asp-validation-for="MeetingRoom.Name" class="text-danger"></span>
     </div>
 </form>

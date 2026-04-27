@@ -9,7 +9,7 @@ namespace DSVMeetingRoomBooking.Models
         public string Name { get; set; }		
 
 		public int Capacity { get; set; }
-		public Equipment?[] equipment { get; set; }
+		public Equipment?[] Equipment { get; set; }
 		public string Description { get; set; }
 
 
