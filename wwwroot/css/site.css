@@ -1,6 +1,17 @@
 html {
-  font-size: 14px;
+    box-sizing: border-box;
+    font-size: 14px;
 }
+*, *::before, *::after {
+    box-sizing: inherit;
+}
+html, body {
+    height: 100%;
+}
+/*body{
+    padding:0;
+    margin:0;
+}*/
 
 @media (min-width: 768px) {
   html {
@@ -17,9 +28,6 @@ html {
   min-height: 100%;
 }
 
-body {
-  margin-bottom: 60px;
-}
 
 .form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
   color: var(--bs-secondary-color);
@@ -28,4 +36,40 @@ body {
 
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
   text-align: start;
+}
+
+/*GLOBAL STYLES*/
+:root {
+    --lightblue: rgb(245, 245, 245);
+    --blue: rgb(0, 41, 102);
+    --lightgrey: #F5F5F5; 
+    --contrast: rgb(255, 110, 0);
+    --color-cards: var(--lightgrey);
+    --color-blue: var(--blue);
+    --color-lightblue: var(--lightblue);
+    --color-accent: var(--contrast);
+}
+/*rgb(245, 245, 245 ) light grey*/
+
+
+/* INDEX PAGE ___________________________________________________________________________________*/
+.index-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(550px, 100%), 1fr));
+    gap: 20px;
+    padding: 40px;
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+
+}
+
+/*FOOTER_______________________________________*/
+footer{
+    background-color: var(--color-blue);    
 }
