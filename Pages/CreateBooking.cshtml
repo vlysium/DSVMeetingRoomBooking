@@ -5,12 +5,13 @@
 
 <h1>Create Booking</h1>
 <form method="post">
-	<input type="hidden" class="form-control" asp-for="RoomId" id="room-id" value="@ViewData["roomId"]" />
 	<div class="mb-3">
-		<label for="comment" class="form-label">Comment</label>
-		<textarea class="form-control" asp-for="Comment" id="comment"></textarea>
+		<input type="hidden" class="form-control" asp-for="RoomId" id="room-id" value="@Model.MeetingRoom.RoomId" />
+		<p>Meeting room selected: <b>@Model.MeetingRoom.Name</b></p>
+	</div>
+	<div class="mb-3">
+		<label for="comment" class="form-label">Optional comment</label>
+		<textarea class="form-control" asp-for="Comment" id="comment" placeholder="Write an optional comment about the meeting"></textarea>
 	</div>
 	<button type="submit" class="btn btn-primary">Submit</button>
 </form>
-
-@* <a asp-page="/CreateBooking" asp-route-roomId="123">123</a> *@

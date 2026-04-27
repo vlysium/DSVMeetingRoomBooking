@@ -16,7 +16,7 @@ namespace DSVMeetingRoomBooking.Models
 		/// <summary>
 		/// Reference to the unique identifier of the room being booked.
 		/// </summary>
-		public int RoomId { get; set; }
+		public string RoomId { get; set; }
 
 		/// <summary>
 		/// The time slot for which the booking is made, represented as a TimeSlot object
@@ -31,21 +31,12 @@ namespace DSVMeetingRoomBooking.Models
 		public string? Comment { get; set; }
 
 		/// <summary>
-		/// Initializes a new instance of the Booking class with the specified room ID and time slot.
+		/// Initializes a new instance of the Booking class with a unique identifier.
 		/// </summary>
-		/// <param name="roomId">
-		/// The unique identifier referencing the room being booked, represented as an integer.
-		/// </param>
-		/// <param name="timeSlot">
-		/// The time slot for which the booking is made, represented as a TimeSlot object
-		/// containing the start and end times of the booking.
-		/// </param>
-		public Booking(int roomId, TimeSlot timeSlot)
+		public Booking()
 		{
 			// Generate a unique identifier for the booking and take the first 8 characters
 			Id = Guid.NewGuid().ToString().Substring(0, 8);
-			RoomId = roomId;
-			TimeSlot = timeSlot;
 		}
 
 		/// <summary>
@@ -62,8 +53,10 @@ namespace DSVMeetingRoomBooking.Models
 		/// An optional comment or note associated with the booking, allowing users
 		/// to provide additional information or context about the booking.
 		/// </param>
-		public Booking(int roomId, TimeSlot timeSlot, string comment): this(roomId, timeSlot)
+		public Booking(string roomId, TimeSlot timeSlot, string comment): this()
 		{
+			RoomId = roomId;
+			TimeSlot = timeSlot;
 			Comment = comment;
 		}
 

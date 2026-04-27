@@ -8,27 +8,47 @@ namespace DSVMeetingRoomBooking.Pages
     public class CreateBookingModel : PageModel
     {
         [BindProperty]
-        public string RoomId { get; set; }
+        public required string RoomId { get; set; }
 
         [BindProperty]
         public string? Comment { get; set; }
 
-        private BookingService _bookingService;
+        public MeetingRoom MeetingRoom { get; set; }
 
-        public CreateBookingModel(BookingService bookingService)
+        private BookingService _bookingService;
+        private MeetingRoomService _meetingRoomService;
+
+        public CreateBookingModel(BookingService bookingService, MeetingRoomService meetingRoomService)
         {
             _bookingService = bookingService;
+            _meetingRoomService = meetingRoomService;
         }
 
-        public void OnGet(string roomId)
+        public IActionResult OnGet(string id)
         {
-            ViewData["roomId"] = roomId;
+            MeetingRoom = _meetingRoomService.GetMeetingRoomById(id);
+
+            // If the meeting room with the specified ID does not exist, redirect to the index page
+            if (MeetingRoom == null)
+            {
+                return RedirectToPage("/Index");
+            }
+            
+            // Do nothing if the meeting room exists
+            return Page();
         }
 
         public IActionResult OnPost()
         {
             TimeSlot timeSlot = new TimeSlot(DateTime.Now, DateTime.Now.AddHours(1)); // temporary time slot for testing
-            Booking booking = new Booking(100, timeSlot, Comment); // temporary booking ID for testing
+
+            string comment = "";
+            if (Comment != null)
+            {
+                comment = Comment;
+            }
+            
+            Booking booking = new Booking(RoomId, timeSlot, comment);
             _bookingService.CreateBooking(booking);
             return RedirectToPage("/Index");
         }
