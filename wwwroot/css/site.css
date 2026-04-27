@@ -13,6 +13,18 @@ body{
     margin:0;
 }
 
+/*GLOBAL STYLES_____________________________________________________*/
+:root {
+    --lightblue: rgb(245, 245, 245);
+    --blue: rgb(0, 41, 102);
+    --lightgrey: #F5F5F5;
+    --contrast: #ffc107;
+    --color-cards: var(--lightgrey);
+    --color-blue: var(--blue);
+    --color-lightblue: var(--lightblue);
+    --color-accent: var(--contrast);
+}
+
 @media (min-width: 768px) {
   html {
     font-size: 16px;
@@ -38,18 +50,6 @@ html {
   text-align: start;
 }
 
-/*GLOBAL STYLES*/
-:root {
-    --lightblue: rgb(245, 245, 245);
-    --blue: rgb(0, 41, 102);
-    --lightgrey: #F5F5F5; 
-    --contrast: rgb(255, 110, 0);
-    --color-cards: var(--lightgrey);
-    --color-blue: var(--blue);
-    --color-lightblue: var(--lightblue);
-    --color-accent: var(--contrast);
-}
-/*rgb(245, 245, 245 ) light grey*/
 
 
 /* INDEX PAGE ___________________________________________________________________________________*/
@@ -101,6 +101,10 @@ html {
 }*/
 
     /*FOOTER_______________________________________*/
-    footer {
-        background-color: var(--color-blue);
-    }
+footer {
+    background-color: var(--color-blue);
+     color:var(--lightgrey)!important;
+}
+.contrast-color{
+    color:var(--color-accent)
+}
