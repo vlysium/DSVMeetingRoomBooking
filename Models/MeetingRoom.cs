@@ -9,27 +9,22 @@ namespace DSVMeetingRoomBooking.Models
         public string Name { get; set; }		
 
 		public int Capacity { get; set; }
-		public Equipment?[] Equipment { get; set; }
+		public List<Equipment> Equipment { get; set; }
 		public string Description { get; set; }
 
 
 
         public MeetingRoom()
 		{
-
-
-
 		}
 
-		//public MeetingRoom ( int roomid , string nameOfRoom , bool isavailble , int capacity)
-		//{
-		//	RoomId = roomid;
-		//	nameOfRoom = nameOfRoom;
-		//	IsAvailable = isavailble;
-		//	Capacity = capacity;
-
-
-
-		//}
-    }
+		public MeetingRoom(int roomid, string nameOfRoom, int capacity, string description, List<Equipment> equipment)
+		{
+			RoomId = roomid;
+			Name = nameOfRoom;			
+			Capacity = capacity;
+			Description = description;
+			Equipment = equipment;
+        }
+	}
 }

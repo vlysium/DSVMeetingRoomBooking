@@ -6,7 +6,8 @@ namespace DSVMeetingRoomBooking.Services
 	public class MeetingRoomService
 	{
 		private readonly IMeetingRoomRepository _meetingRoomRepository;
-		private List<MeetingRoom> _meetingRooms;
+		public List<MeetingRoom> _meetingRooms;
+
 		public MeetingRoomService(IMeetingRoomRepository meetingRoomRepository)
 		{
 			_meetingRoomRepository = meetingRoomRepository;

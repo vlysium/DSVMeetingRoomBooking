@@ -1,4 +1,5 @@
 ﻿@page
+@using DSVMeetingRoomBooking.Models
 @model DSVMeetingRoomBooking.Pages.AddRoomModel
 @{
 }
@@ -14,9 +15,23 @@
         <span asp-validation-for="MeetingRoom.Capacity" class="text-danger"></span>
     </div>
     <div class="mb-3">
-        <label for="exampleFormControlInput1" class="form-label">Equipment</label>
-        <input asp-for="MeetingRoom.Name" class="form-control" placeholder="Equipment">
-        <span asp-validation-for="MeetingRoom.Equipment" class="text-danger"></span>
+        <label class="form-label">Equipment</label>
+        <div class="card p-3">
+            @foreach (var item in Enum.GetValues(typeof(Equipment)))
+            {
+                <div class="form-check">
+                    @* The 'name' attribute is the secret sauce here *@
+                    <input class="form-check-input"
+                           type="checkbox"
+                           name="MeetingRoom.Equipment"
+                           value="@item"
+                           id="check_@item" />
+                    <label class="form-check-label" for="check_@item">
+                        @item
+                    </label>
+                </div>
+            }
+        </div>
     </div>
     <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">Description</label>
@@ -24,3 +39,16 @@
         <span asp-validation-for="MeetingRoom.Name" class="text-danger"></span>
     </div>
 </form>
+
+@* <div class="form-check">
+    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+    <label class="form-check-label" for="flexCheckDefault">
+        Default checkbox
+    </label>
+</div>
+<div class="form-check">
+    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+    <label class="form-check-label" for="flexCheckChecked">
+        Checked checkbox
+    </label>
+</div> *@
