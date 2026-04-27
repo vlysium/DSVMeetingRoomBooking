@@ -13,6 +13,8 @@ namespace DSVMeetingRoomBooking.Pages
             builder.Services.AddRazorPages();
             builder.Services.AddSingleton<IMeetingRoomRepository, MeetingRoomRepository>();
             builder.Services.AddSingleton<MeetingRoomService>();
+            builder.Services.AddSingleton<IBookingRepository, BookingRepository>();
+            builder.Services.AddSingleton<BookingService>();
 
             var app = builder.Build();
 
