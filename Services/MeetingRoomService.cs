@@ -22,5 +22,10 @@ namespace DSVMeetingRoomBooking.Services
 			_meetingRoomRepository.AddRoom(meetingRoom);
         }
 
+		public MeetingRoom GetMeetingRoomById(string id)
+		{
+			return _meetingRoomRepository.GetMeetingRoomById(id);
+		}
+
     }
 }

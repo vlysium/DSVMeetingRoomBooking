@@ -4,16 +4,18 @@ using System.Text.Json;
 
 namespace DSVMeetingRoomBooking.Repositories
 {
-	public class MeetingRoomRepository: IMeetingRoomRepository
+	public class MeetingRoomRepository : IMeetingRoomRepository
     {
 		private string _filePath = @"Data/rooms.json";
 
 		public List<MeetingRoom> _meetingRooms;
 
-		public List<MeetingRoom> GetAllMeetingRooms()
+		public MeetingRoomRepository()
 		{
-			LoadFile();
-			return _meetingRooms;
+			if (File.Exists(_filePath))
+			{
+				LoadFile();
+			}
 		}
 
         public void LoadFile()
@@ -26,13 +28,28 @@ namespace DSVMeetingRoomBooking.Repositories
 			string json = JsonSerializer.Serialize(_meetingRooms);
             File.WriteAllText(_filePath, json);
         }
-       
+
+		public List<MeetingRoom> GetAllMeetingRooms()
+		{
+			return _meetingRooms;
+		}
 
         public void AddRoom(MeetingRoom meetingRoom)
 		{
-			LoadFile();
 			_meetingRooms.Add(meetingRoom);
 			SaveFile();
 		}
-    }
+
+		public MeetingRoom GetMeetingRoomById(string id)
+		{
+			foreach (MeetingRoom room in _meetingRooms)
+			{
+				if (room.RoomId == id)
+				{
+					return room;
+				}
+			}
+			return null;
+		}
+	}
 }
