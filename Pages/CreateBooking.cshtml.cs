@@ -5,6 +5,8 @@ namespace DSVMeetingRoomBooking.Pages
 {
     public class CreateBookingModel : PageModel
     {
+
+
         public void OnGet()
         {
         }
