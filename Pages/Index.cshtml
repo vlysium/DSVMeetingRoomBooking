@@ -9,3 +9,28 @@
   <h1 class="display-4">Welcome</h1>
   <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+
+@foreach (var room in Model.MeetingRooms)
+{
+    <div class="card" style="width: 18rem; margin-bottom: 10px;">
+        <div class="card-body">
+            <h5 class="card-title">@room.Name</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Capacity: @room.Capacity</h6>
+
+            <p class="card-text">
+                <strong>Equipment:</strong>
+                @if (room.Equipment != null && room.Equipment.Any())
+                {
+                    @string.Join(", ", room.Equipment)
+                }
+                else
+                {
+                    <span>None</span>
+                }
+            </p>
+
+            <p class="card-text">@room.Description</p>
+            <a href="#" class="btn btn-primary">Book Room</a>
+        </div>
+    </div>
+}

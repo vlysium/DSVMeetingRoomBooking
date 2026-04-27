@@ -8,7 +8,7 @@ namespace DSVMeetingRoomBooking.Repositories
     {
 		private string _filePath = @"Data/rooms.json";
 
-		private List<MeetingRoom> _meetingRooms;
+		public List<MeetingRoom> _meetingRooms;
 
 		public List<MeetingRoom> GetAllMeetingRooms()
 		{
