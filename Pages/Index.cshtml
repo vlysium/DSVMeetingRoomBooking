@@ -55,27 +55,25 @@
                                        onchange="this.form.submit()" @(Model.SelectedCapacities.Contains("xlarge") ? "checked" : "")>
                                 <label class="form-check-label">75+</label>
                             </div>
-                        </form>
-                    </div>
-                    <div>
-                        <form method="get" id="filterForm">
+                                       
+                        
                             <p>Choose Equipment</p>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="SelectedCapacities" value="Projector"
+                                <input class="form-check-input" type="checkbox" name="SelectedEquipment" value="Projector"
                                        onchange="this.form.submit()" @(Model.SelectedEquipment.Contains("Projector") ? "checked" : "")>
-                                <label class="form-check-label">0-25</label>
+                                <label class="form-check-label">Projector</label>
                             </div>
     
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="SelectedCapacities" value="medium"
+                                <input class="form-check-input" type="checkbox" name="SelectedEquipment" value="Whiteboard"
                                        onchange="this.form.submit()" @(Model.SelectedEquipment.Contains("Whiteboard") ? "checked" : "")>
-                                <label class="form-check-label">25-50</label>
+                                <label class="form-check-label">Whiteboard</label>
                             </div>
 
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="SelectedCapacities" value="large"
+                                <input class="form-check-input" type="checkbox" name="SelectedEquipment" value="Microphone"
                                        onchange="this.form.submit()" @(Model.SelectedEquipment.Contains("Microphone") ? "checked" : "")>
-                                <label class="form-check-label">50-75</label>
+                                <label class="form-check-label">Microphone</label>
                             </div>                     
                         </form>
                         

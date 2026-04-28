@@ -38,13 +38,14 @@ namespace DSVMeetingRoomBooking.Pages
             List<MeetingRoom> allRooms = _meetingRoomService.GetAllMeetingRooms(); //standard visning- ingne filtrering
 
             
-            if (SelectedCapacities == null || SelectedCapacities.Count == 0)
+            if ((SelectedCapacities == null || SelectedCapacities.Count ==0) 
+                && (SelectedEquipment == null|| SelectedEquipment.Count ==0))
             {
                 MeetingRooms = allRooms;
                 return;
             }
 
-            //Filtrering starter, hvis checkboxes trykkes på
+            //Filtrering starter, hvis checkboxes trykkes på. (OBS det er SAMME <form> tag for ALLE filtre)
             foreach (MeetingRoom room in allRooms)
             {
                 foreach (string range in SelectedCapacities)
@@ -70,6 +71,18 @@ namespace DSVMeetingRoomBooking.Pages
                     {
                         MeetingRooms.Add(room);
                         break;
+                    }
+                }
+                foreach (string equipment in SelectedEquipment)
+                {
+
+                    foreach (var item in room.Equipment)
+                    {
+                        if (item.ToString() == equipment)
+                        {                           
+                            MeetingRooms.Add(room);
+                            break;
+                        }
                     }
                 }
             }
