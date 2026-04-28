@@ -15,20 +15,21 @@ namespace DSVMeetingRoomBooking.Services
 		public bool IsRoomAvailable(string roomId, TimeSlot timeslot)
 		{
 			List<Booking> allBookings = _bookingRepository.GetAll();
-			for (int i = 0; i < allBookings.Count; i++)
+			foreach (Booking booking in allBookings)
 			{
-				// Find all bookings for the given meeting room
-				if (allBookings[i].RoomId == roomId)
+				// Check if the booking is for the same room
+				if (booking.RoomId != roomId)
 				{
-					
+					continue;
+				}
 
-					// Check if the timeslot of the booking overlaps with any existing booking for the same room
-					if (timeslot.StartTime < allBookings[i].TimeSlot.EndTime && timeslot.EndTime > allBookings[i].TimeSlot.StartTime)
-					{
-						return false;
-					}
+				// Check if the timeslot overlaps with the booking's timeslot
+				if (timeslot.StartTime < booking.TimeSlot.EndTime && timeslot.EndTime > booking.TimeSlot.StartTime)
+				{
+					return false;
 				}
 			}
+
 			return true;
 		}
 

@@ -9,8 +9,11 @@ namespace DSVMeetingRoomBooking.Pages
     public class IndexModel : PageModel
     {
         private readonly MeetingRoomService _meetingRoomService;
-        
+        private readonly BookingService _bookingService;
+
         public List<MeetingRoom> MeetingRooms { get; set; }
+
+        public Dictionary<MeetingRoom, bool> AvailableRooms { get; set; }
 
         // List of options to loop through in the view for filtering
         public List<(string Value, string Label)> CapacityOptions = new()
@@ -39,10 +42,21 @@ namespace DSVMeetingRoomBooking.Pages
         [BindProperty]
         public List<Equipment> SelectedEquipment { get; set; } = new List<Equipment>();
 
-        public IndexModel(MeetingRoomService meetingRoomService)
+        [BindProperty]
+        public DateTime SelectedDay { get; set; } = DateOnly.FromDateTime(DateTime.Now).ToDateTime(TimeOnly.MinValue);
+
+        [BindProperty]
+        public DateTime TimeStart { get; set; } = DateTime.Now;
+
+        [BindProperty]
+        public DateTime TimeEnd { get; set; } = DateTime.Now.AddHours(1);
+
+        public IndexModel(MeetingRoomService meetingRoomService, BookingService bookingService)
         {
             _meetingRoomService = meetingRoomService;
+            _bookingService = bookingService;
             MeetingRooms = meetingRoomService.GetAllMeetingRooms();
+            ShowRoomAvailability();
         }
 
         public void OnGet() { }
@@ -61,6 +75,36 @@ namespace DSVMeetingRoomBooking.Pages
             Console.WriteLine($"Selected Capacity: {SelectedCapacity}");
             Console.WriteLine($"Selected Equipment: {string.Join(", ", SelectedEquipment)}");
             MeetingRooms = _meetingRoomService.FilterMeetingRooms(SelectedCapacity, SelectedEquipment);
+        }
+
+        public void OnPostRoomAvailability()
+        {
+            ShowRoomAvailability();
+        }
+
+        private void ShowRoomAvailability()
+        {
+            DateTime formattedTimeStart = DateTime.Parse($"{SelectedDay:dd/MM/yyyy} {TimeStart:HH:mm}");
+
+            // Add a day to the end time if the start time is after the end time,
+            // to account for bookings that span past midnight
+            if (TimeStart > TimeEnd)
+            {
+                SelectedDay = SelectedDay.AddDays(1);
+            }
+
+            DateTime formattedTimeEnd = DateTime.Parse($"{SelectedDay:dd/MM/yyyy} {TimeEnd:HH:mm}");
+            TimeSlot timeSlot = new TimeSlot(formattedTimeStart, formattedTimeEnd);
+
+
+            AvailableRooms = new Dictionary<MeetingRoom, bool>();
+            foreach (var room in MeetingRooms)
+            {
+                bool isAvailable = _bookingService.IsRoomAvailable(room.RoomId, timeSlot);
+                AvailableRooms.Add(room, isAvailable);
+            }
+
+            Console.WriteLine($"Time Slot: {timeSlot.StartTime} - {timeSlot.EndTime}");
         }
     }
 }
