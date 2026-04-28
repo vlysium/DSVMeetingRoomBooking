@@ -12,7 +12,25 @@ namespace DSVMeetingRoomBooking.Services
 			_bookingRepository = bookingRepository;
 		}
 
-		// public bool IsRoomAvailable(int roomId, TimeSlot timeslot) {}
+		public bool IsRoomAvailable(string roomId, TimeSlot timeslot)
+		{
+			List<Booking> allBookings = _bookingRepository.GetAll();
+			for (int i = 0; i < allBookings.Count; i++)
+			{
+				// Find all bookings for the given meeting room
+				if (allBookings[i].RoomId == roomId)
+				{
+					
+
+					// Check if the timeslot of the booking overlaps with any existing booking for the same room
+					if (timeslot.StartTime < allBookings[i].TimeSlot.EndTime && timeslot.EndTime > allBookings[i].TimeSlot.StartTime)
+					{
+						return false;
+					}
+				}
+			}
+			return true;
+		}
 
 		/// <summary>
 		/// Gets all bookings from the repository.
@@ -87,3 +105,4 @@ namespace DSVMeetingRoomBooking.Services
 		}
 	}
 }
+
