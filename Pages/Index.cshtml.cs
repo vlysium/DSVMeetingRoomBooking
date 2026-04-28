@@ -10,6 +10,9 @@ namespace DSVMeetingRoomBooking.Pages
         private readonly MeetingRoomService _meetingRoomService;
         private readonly BookingService _bookingService;
         public List<MeetingRoom> MeetingRooms { get; set; }
+
+        [BindProperty]
+        public string SearchTerm { get; set; }
         public IndexModel(MeetingRoomService meetingRoomService, BookingService bookingService)
         {            
             _meetingRoomService = meetingRoomService;
@@ -21,13 +24,15 @@ namespace DSVMeetingRoomBooking.Pages
         {
             
         }
-        public IActionResult OnPostSearchTerm(string searchTerm)
+        public IActionResult OnPostSearchTerm()
         {
-            if (string.IsNullOrWhiteSpace(searchTerm))
+            Console.WriteLine($"Search term: {SearchTerm}");
+
+            if (string.IsNullOrWhiteSpace(SearchTerm))
             {
                 return RedirectToPage("/Index");
             }
-            return RedirectToPage("/Bookings", new { EmployeeId = searchTerm });
+            return RedirectToPage("/Bookings", new { EmployeeId = SearchTerm });
 
         }
         public IActionResult OnPost()
