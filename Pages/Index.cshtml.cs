@@ -26,8 +26,6 @@ namespace DSVMeetingRoomBooking.Pages
         }
         public IActionResult OnPostSearchTerm()
         {
-            Console.WriteLine($"Search term: {SearchTerm}");
-
             if (string.IsNullOrWhiteSpace(SearchTerm))
             {
                 return RedirectToPage("/Index");
