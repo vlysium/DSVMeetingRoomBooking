@@ -25,18 +25,17 @@ namespace DSVMeetingRoomBooking.Pages
 
         }
         public void OnGet()
-        {
-            // 1. Always start by getting every single room from the service
-            List<MeetingRoom> allRooms = _meetingRoomService.GetAllMeetingRooms();
+        {          
+            List<MeetingRoom> allRooms = _meetingRoomService.GetAllMeetingRooms(); //standard visning- ingne filtrering
 
-            // 2. If no checkboxes are ticked, show everything and stop here
+            
             if (SelectedCapacities == null || SelectedCapacities.Count == 0)
             {
                 MeetingRooms = allRooms;
                 return;
             }
 
-            // 3. If checkboxes ARE ticked, we filter manually
+            //Filtrering starter, hvis checkboxes trykkes på
             foreach (MeetingRoom room in allRooms)
             {
                 foreach (string range in SelectedCapacities)
