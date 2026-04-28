@@ -9,6 +9,8 @@ namespace DSVMeetingRoomBooking.Pages
     {
         [BindProperty]
         public required string RoomId { get; set; }
+
+        [BindProperty]
         public required string EmployeeId { get; set; }
 
         [BindProperty]
