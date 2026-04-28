@@ -31,26 +31,31 @@
                         <p>Time filter</p>
                     </div>
                     <div>
-                        <p>Choose Capacity</p>
-                        <div class="form-check">
-                            <form asp-page-handler=""
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">
-                                25
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-                            <label class="form-check-label" for="flexCheckChecked">
-                                50
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-                            <label class="form-check-label" for="flexCheckChecked">
-                                75+
-                            </label>
-                        </div>
+                        <form method="get" id="filterForm">
+                            <p>Choose Capacity</p>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="SelectedCapacities" value="small"
+                                       onchange="this.form.submit()" @(Model.SelectedCapacities.Contains("small") ? "checked" : "")>
+                                <label class="form-check-label">0-25</label>
+                            </div>
+    
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="SelectedCapacities" value="medium"
+                                       onchange="this.form.submit()" @(Model.SelectedCapacities.Contains("medium") ? "checked" : "")>
+                                <label class="form-check-label">25-50</label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="SelectedCapacities" value="large"
+                                       onchange="this.form.submit()" @(Model.SelectedCapacities.Contains("large") ? "checked" : "")>
+                                <label class="form-check-label">50-75</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="SelectedCapacities" value="xlarge"
+                                       onchange="this.form.submit()" @(Model.SelectedCapacities.Contains("xlarge") ? "checked" : "")>
+                                <label class="form-check-label">75+</label>
+                            </div>
+                        </form>
                     </div>
                     <div>
                         <p>Equipment filter</p>
