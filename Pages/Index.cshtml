@@ -32,8 +32,7 @@
                     </div>
                     <div>
                         <form method="get" id="filterForm">
-                            <h5 class="card-title pe-5" card-title pe-5>
-                                Choose Capacity</h5>
+                            <p>Choose Capacity</p>
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" name="SelectedCapacities" value="small"
                                        onchange="this.form.submit()" @(Model.SelectedCapacities.Contains("small") ? "checked" : "")>
@@ -57,7 +56,8 @@
                                 <label class="form-check-label">75+</label>
                             </div>
                                        
-                            <h5 class="card-title pe-5" card-title pe-5>Choose Equipment</h5>
+                        
+                            <p>Choose Equipment</p>
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" name="SelectedEquipment" value="Projector"
                                        onchange="this.form.submit()" @(Model.SelectedEquipment.Contains("Projector") ? "checked" : "")>
@@ -98,37 +98,8 @@
                 </div>
             </div>
 
-            <div>
-                <form id="booking-time-period-form" class="booking-time-period-form" asp-page-handler="RoomAvailability" method="post">
-                    <h2 class="fs-3">Select a time to book your meeting</h2>
-                    <div class="booking-time-period-content">
-                        <div class="booking-time-date">
-                            <label for="selected-day">Day</label>
-                            @*
-                                Earliest selectable date is current date
-                                Latest selectable date is one month from current date
-                            *@
-                            <input id="selected-day" asp-for="SelectedDay" class="form-control" type="date"
-                                min="@DateTime.Today.ToString("yyyy-MM-dd")" 
-                                max="@DateTime.Today.AddMonths(1).ToString("yyyy-MM-dd")"
-                            /> 
-                        </div>
-                        <div class="booking-time-range">
-                            <div class="booking-time-start">
-                                <label for="time-start">Time Start</label>
-                                <input id="time-start" asp-for="TimeStart" class="form-control" type="time" step="300" asp-format="{0:HH:mm}" />
-                            </div>
-                            <div class="booking-time-end">
-                                <label for="time-end">Time End</label>
-                                <input id="time-end" asp-for="TimeEnd" class="form-control" type="time" step="300" asp-format="{0:HH:mm}" />
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-
             <div class="index-grid d-flex flex-wrap justify-content-start gap-3">
-                @foreach (MeetingRoom room in Model.MeetingRooms)
+                @foreach (var room in Model.MeetingRooms)
                 {
                     <div class="card mb-3 shadow-sm" style="flex: 0 1 500px;">
                         <div class="row g-0 align-items-center">
@@ -156,16 +127,7 @@
                                     </p>
 
                                     <p class="card-text text-truncate" style="max-height: 50px;">@room.Description</p>
-                                    @* @if (Model.AvailableRooms.ContainsKey(room) && Model.AvailableRooms[room])
-                                    {
-                                        <div class="room-available">Available</div>
-                                        <a asp-page="/CreateBooking" asp-route-id="@room.RoomId" class="btn btn-primary">Book Now</a>
-                                    }
-                                    else
-                                    {
-                                        <div class="room-unavailable">Unavailable</div>
-                                    } *@
-                                    <a asp-page="/CreateBooking" asp-route-id="@room.RoomId" class="btn btn-primary">Book Now</a>
+                                    <a asp-page="./CreateBooking" asp-route-id="@room.RoomId" class="btn btn-primary">Book Now</a>
                                 </div>
                             </div>
                         </div>

@@ -8,13 +8,12 @@ namespace DSVMeetingRoomBooking.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly MeetingRoomService _meetingRoomService;
-        private readonly BookingService _bookingService;
+        private readonly MeetingRoomService _meetingRoomService;    
         
         public List<MeetingRoom> MeetingRooms { get; set; } = new List<MeetingRoom>(); 
         //OBS vigtigt med en TOM liste, da OnGet fleksibelt skifter mellem alle rum, eller filtrerede rum, n�r vi checker boxes ud
 
-        public Dictionary<MeetingRoom, bool> AvailableRooms { get; set; }
+
 
         [BindProperty]
         public string SearchTerm { get; set; }  //medarbejder id - bruges til at sende brugeren til /Bookings
@@ -25,18 +24,12 @@ namespace DSVMeetingRoomBooking.Pages
         [BindProperty(SupportsGet = true)]
         public List<string> SelectedEquipment { get; set; } = new List<string>();
 
-        [BindProperty]
-        public DateTime SelectedDay { get; set; } = DateOnly.FromDateTime(DateTime.Now).ToDateTime(TimeOnly.MinValue);
-        [BindProperty]
-        public DateTime TimeStart { get; set; } = DateTime.Now;
-        [BindProperty]
-        public DateTime TimeEnd { get; set; } = DateTime.Now.AddHours(1);
 
-        public IndexModel(MeetingRoomService meetingRoomService, BookingService bookingService)
+
+        public IndexModel(MeetingRoomService meetingRoomService)
         {
             _meetingRoomService = meetingRoomService;
-            _bookingService = bookingService;
-            //GetAllMeetingRooms fjernet, da listen skal vre tom indtil OnGet koden krer(se toppen af siden)
+            //GetAllMeetingRooms fjernet, da listen skal v�re tom indtil OnGet koden k�rer(se toppen af siden)
         }
 
 
@@ -45,14 +38,13 @@ namespace DSVMeetingRoomBooking.Pages
             List<MeetingRoom> allRooms = _meetingRoomService.GetAllMeetingRooms(); //standard visning- ingne filtrering
 
             
-            if ((SelectedCapacities == null || SelectedCapacities.Count ==0) 
-                && (SelectedEquipment == null|| SelectedEquipment.Count ==0))
+            if (SelectedCapacities == null || SelectedCapacities.Count == 0)
             {
                 MeetingRooms = allRooms;
                 return;
             }
 
-            //Filtrering starter, hvis checkboxes trykkes på. (OBS det er SAMME <form> tag for ALLE filtre)
+            //Filtrering starter, hvis checkboxes trykkes p�
             foreach (MeetingRoom room in allRooms)
             {
                 foreach (string range in SelectedCapacities)
@@ -80,29 +72,6 @@ namespace DSVMeetingRoomBooking.Pages
                         break;
                     }
                 }
-                foreach (string equipment in SelectedEquipment)
-                {
-
-                    foreach (var item in room.Equipment)
-                    {
-                        if (item.ToString() == equipment)
-                        {                           
-                            MeetingRooms.Add(room);
-                            break;
-                        }
-                    }
-                }
-            }
-
-            DateTime formattedTimeStart = DateTime.Parse($"{SelectedDay:dd/MM/yyyy} {TimeStart:HH:mm}");
-            DateTime formattedTimeEnd = DateTime.Parse($"{SelectedDay:dd/MM/yyyy} {TimeEnd:HH:mm}");
-            TimeSlot timeSlot = new TimeSlot(formattedTimeStart, formattedTimeEnd);
-
-            AvailableRooms = new Dictionary<MeetingRoom, bool>();
-            foreach (var room in MeetingRooms)
-            {
-                bool isAvailable = _bookingService.IsRoomAvailable(room.RoomId, timeSlot);
-                AvailableRooms.Add(room, isAvailable);
             }
         }
         public IActionResult OnPostSearchTerm()
@@ -114,19 +83,6 @@ namespace DSVMeetingRoomBooking.Pages
             return RedirectToPage("/Bookings", new { EmployeeId = SearchTerm });
 
         }
-
-        public void OnPostRoomAvailability()
-        {
-            DateTime formattedTimeStart = DateTime.Parse($"{SelectedDay:dd/MM/yyyy} {TimeStart:HH:mm}");
-            DateTime formattedTimeEnd = DateTime.Parse($"{SelectedDay:dd/MM/yyyy} {TimeEnd:HH:mm}");
-            TimeSlot timeSlot = new TimeSlot(formattedTimeStart, formattedTimeEnd);
-
-            AvailableRooms = new Dictionary<MeetingRoom, bool>();
-            foreach (var room in MeetingRooms)
-            {
-                bool isAvailable = _bookingService.IsRoomAvailable(room.RoomId, timeSlot);
-                AvailableRooms.Add(room, isAvailable);
-            }
-        }
+  
     }
 }
