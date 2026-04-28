@@ -42,8 +42,11 @@ namespace DSVMeetingRoomBooking.Models
 		/// <summary>
 		/// Initializes a new instance of the Booking class with the specified room ID, time slot, and comment.
 		/// </summary>
+		/// <param name="employeeId">
+		/// The unique identifier for the employee making the booking, represented as a string.
+		/// </param>
 		/// <param name="roomId">
-		/// The unique identifier referencing the room being booked, represented as an integer.
+		/// The unique identifier referencing the room being booked, represented as a string.
 		/// </param>
 		/// <param name="timeSlot">
 		/// The time slot for which the booking is made, represented as a TimeSlot object
@@ -53,8 +56,9 @@ namespace DSVMeetingRoomBooking.Models
 		/// An optional comment or note associated with the booking, allowing users
 		/// to provide additional information or context about the booking.
 		/// </param>
-		public Booking(string roomId, TimeSlot timeSlot, string comment): this()
+		public Booking(string employeeId, string roomId, TimeSlot timeSlot, string comment): this()
 		{
+			EmployeeId = employeeId;
 			RoomId = roomId;
 			TimeSlot = timeSlot;
 			Comment = comment;
@@ -62,7 +66,7 @@ namespace DSVMeetingRoomBooking.Models
 
 		public override string ToString()
 		{
-			return $"Booking ID: {Id}, Room ID: {RoomId}, Time Slot: {TimeSlot}, Comment: {Comment}";
+			return $"Booking ID: {Id}, Employee ID: {EmployeeId}, Room ID: {RoomId}, Time Slot: {TimeSlot}, Comment: {Comment}";
 		}
 	}
 }

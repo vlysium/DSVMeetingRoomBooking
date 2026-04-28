@@ -6,6 +6,10 @@
 <h1>Create Booking</h1>
 <form method="post">
 	<div class="mb-3">
+		<label for="employee-id" class="form-label">Employee ID</label>
+		<input type="text" class="form-control" asp-for="EmployeeId" id="employee-id" placeholder="Enter your employee ID" />
+	</div>
+	<div class="mb-3">
 		<input type="hidden" class="form-control" asp-for="RoomId" id="room-id" value="@Model.MeetingRoom.RoomId" />
 		<p>Meeting room selected: <b>@Model.MeetingRoom.Name</b></p>
 	</div>

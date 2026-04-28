@@ -9,6 +9,7 @@ namespace DSVMeetingRoomBooking.Pages
     {
         [BindProperty]
         public required string RoomId { get; set; }
+        public required string EmployeeId { get; set; }
 
         [BindProperty]
         public string? Comment { get; set; }
@@ -48,7 +49,7 @@ namespace DSVMeetingRoomBooking.Pages
                 comment = Comment;
             }
             
-            Booking booking = new Booking(RoomId, timeSlot, comment);
+            Booking booking = new Booking(EmployeeId, RoomId, timeSlot, comment);
             _bookingService.CreateBooking(booking);
             return RedirectToPage("/Index");
         }
