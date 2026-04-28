@@ -2,6 +2,7 @@ using DSVMeetingRoomBooking.Models;
 using DSVMeetingRoomBooking.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.ComponentModel;
 
 namespace DSVMeetingRoomBooking.Pages
 {
@@ -13,17 +14,25 @@ namespace DSVMeetingRoomBooking.Pages
         //OBS vigtigt med en TOM liste, da OnGet fleksibelt skifter mellem alle rum, eller filtrerede rum, når vi checker boxes ud
 
 
+
         [BindProperty]
         public string SearchTerm { get; set; }  //medarbejder id - bruges til at sende brugeren til /Bookings
 
         [BindProperty(SupportsGet = true)]
         public List<string> SelectedCapacities { get; set; } = new List<string>();
 
+        [BindProperty(SupportsGet = true)]
+        public List<string> SelectedEquipment { get; set; } = new List<string>();
+
+
+
         public IndexModel(MeetingRoomService meetingRoomService)
         {
             _meetingRoomService = meetingRoomService;
             //GetAllMeetingRooms fjernet, da listen skal være tom indtil OnGet koden kører(se toppen af siden)
         }
+
+
         public void OnGet()
         {          
             List<MeetingRoom> allRooms = _meetingRoomService.GetAllMeetingRooms(); //standard visning- ingne filtrering
@@ -74,9 +83,6 @@ namespace DSVMeetingRoomBooking.Pages
             return RedirectToPage("/Bookings", new { EmployeeId = SearchTerm });
 
         }
-        public IActionResult OnPost()
-        {
-            return RedirectToPage("/Index");
-        }
+  
     }
 }

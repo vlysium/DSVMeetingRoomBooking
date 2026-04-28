@@ -58,7 +58,27 @@
                         </form>
                     </div>
                     <div>
-                        <p>Equipment filter</p>
+                        <form method="get" id="filterForm">
+                            <p>Choose Equipment</p>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="SelectedCapacities" value="Projector"
+                                       onchange="this.form.submit()" @(Model.SelectedEquipment.Contains("Projector") ? "checked" : "")>
+                                <label class="form-check-label">0-25</label>
+                            </div>
+    
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="SelectedCapacities" value="medium"
+                                       onchange="this.form.submit()" @(Model.SelectedEquipment.Contains("Whiteboard") ? "checked" : "")>
+                                <label class="form-check-label">25-50</label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="SelectedCapacities" value="large"
+                                       onchange="this.form.submit()" @(Model.SelectedEquipment.Contains("Microphone") ? "checked" : "")>
+                                <label class="form-check-label">50-75</label>
+                            </div>                     
+                        </form>
+                        
                     </div>
                 </div>
             </div>
