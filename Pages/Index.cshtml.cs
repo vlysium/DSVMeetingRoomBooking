@@ -8,72 +8,45 @@ namespace DSVMeetingRoomBooking.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly MeetingRoomService _meetingRoomService;    
+        private readonly MeetingRoomService _meetingRoomService;
         
-        public List<MeetingRoom> MeetingRooms { get; set; } = new List<MeetingRoom>(); 
-        //OBS vigtigt med en TOM liste, da OnGet fleksibelt skifter mellem alle rum, eller filtrerede rum, n�r vi checker boxes ud
+        public List<MeetingRoom> MeetingRooms { get; set; }
 
+        // List of options to loop through in the view for filtering
+        public List<(string Value, string Label)> CapacityOptions = new()
+        {
+            ("all", "All"),
+            ("small", "0-25"),
+            ("medium", "25-50"),
+            ("large", "50-75"),
+            ("xlarge", "75+")
+        };
 
+        // List of options to loop through in the view for filtering
+        public List<(Equipment Value, string Label)> EquipmentOptions = new()
+        {
+            (Equipment.Projector, "Projector"),
+            (Equipment.WhiteBoard, "Whiteboard"),
+            (Equipment.Microphone, "Microphone")
+        };
 
         [BindProperty]
-        public string SearchTerm { get; set; }  //medarbejder id - bruges til at sende brugeren til /Bookings
+        public string SearchTerm { get; set; }  // EmployeeId - used in `/bookings`
 
-        [BindProperty(SupportsGet = true)]
-        public List<string> SelectedCapacities { get; set; } = new List<string>();
+        [BindProperty]
+        public string SelectedCapacity { get; set; } = "all"; // Default value for capacity filter
 
-        [BindProperty(SupportsGet = true)]
-        public List<string> SelectedEquipment { get; set; } = new List<string>();
-
-
+        [BindProperty]
+        public List<Equipment> SelectedEquipment { get; set; } = new List<Equipment>();
 
         public IndexModel(MeetingRoomService meetingRoomService)
         {
             _meetingRoomService = meetingRoomService;
-            //GetAllMeetingRooms fjernet, da listen skal v�re tom indtil OnGet koden k�rer(se toppen af siden)
+            MeetingRooms = meetingRoomService.GetAllMeetingRooms();
         }
 
-
-        public void OnGet()
-        {          
-            List<MeetingRoom> allRooms = _meetingRoomService.GetAllMeetingRooms(); //standard visning- ingne filtrering
-
-            
-            if (SelectedCapacities == null || SelectedCapacities.Count == 0)
-            {
-                MeetingRooms = allRooms;
-                return;
-            }
-
-            //Filtrering starter, hvis checkboxes trykkes p�
-            foreach (MeetingRoom room in allRooms)
-            {
-                foreach (string range in SelectedCapacities)
-                {
-                    if (range == "small" && room.Capacity >= 0 && room.Capacity <= 25)
-                    {
-                        MeetingRooms.Add(room);
-                        break;
-                    }
-
-                    if (range == "medium" && room.Capacity > 25 && room.Capacity <= 50)
-                    {
-                        MeetingRooms.Add(room);
-                        break;
-                    }
-
-                    if (range == "large" && room.Capacity > 50 && room.Capacity <= 75)
-                    {
-                        MeetingRooms.Add(room);
-                        break;
-                    }
-                    if (range == "xlarge" && room.Capacity > 75)
-                    {
-                        MeetingRooms.Add(room);
-                        break;
-                    }
-                }
-            }
-        }
+        public void OnGet() { }
+        
         public IActionResult OnPostSearchTerm()
         {
             if (string.IsNullOrWhiteSpace(SearchTerm))
@@ -81,8 +54,13 @@ namespace DSVMeetingRoomBooking.Pages
                 return RedirectToPage("/Index");
             }
             return RedirectToPage("/Bookings", new { EmployeeId = SearchTerm });
-
         }
-  
+
+        public void OnPostFilter()
+        {
+            Console.WriteLine($"Selected Capacity: {SelectedCapacity}");
+            Console.WriteLine($"Selected Equipment: {string.Join(", ", SelectedEquipment)}");
+            MeetingRooms = _meetingRoomService.FilterMeetingRooms(SelectedCapacity, SelectedEquipment);
+        }
     }
 }

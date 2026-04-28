@@ -3,13 +3,11 @@
 
 // Write your JavaScript code.
 
-// `Index.cshtml` Booking time
-const bookingTimePeriodForm = document.getElementById("booking-time-period-form");
-const bookingTimePeriodFormInputs = bookingTimePeriodForm.querySelectorAll("#selected-day, #time-start, #time-end");
-
-bookingTimePeriodFormInputs.forEach(input => {
-	input.addEventListener("blur", () => {
-		bookingTimePeriodForm.submit();
+// Listens for changes on any input element with a `data-post-on` attribute
+// and submits the form when the specified event occurs.
+const FormInputs = document.querySelectorAll("[data-post-on]");
+FormInputs.forEach(input => {
+	input.addEventListener(input.dataset.postOn, () => {
+		input.form.submit();
 	});
 });
-

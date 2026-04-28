@@ -31,52 +31,31 @@
                         <p>Time filter</p>
                     </div>
                     <div>
-                        <form method="get" id="filterForm">
+                        <form method="post" id="filterForm" asp-page-handler="Filter">
                             <p>Choose Capacity</p>
+                            @foreach (var option in Model.CapacityOptions)
+                            {
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="SelectedCapacities" value="small"
-                                       onchange="this.form.submit()" @(Model.SelectedCapacities.Contains("small") ? "checked" : "")>
-                                <label class="form-check-label">0-25</label>
+                                <input data-post-on="change" id="@option.Value" class="form-check-input" type="radio" name="SelectedCapacity"
+                                    value="@option.Value"
+                                    checked="@(Model.SelectedCapacity == option.Value)"
+                                >
+                                <label class="form-check-label" for="@option.Value">@option.Label</label>
                             </div>
-    
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="SelectedCapacities" value="medium"
-                                       onchange="this.form.submit()" @(Model.SelectedCapacities.Contains("medium") ? "checked" : "")>
-                                <label class="form-check-label">25-50</label>
-                            </div>
-
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="SelectedCapacities" value="large"
-                                       onchange="this.form.submit()" @(Model.SelectedCapacities.Contains("large") ? "checked" : "")>
-                                <label class="form-check-label">50-75</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="SelectedCapacities" value="xlarge"
-                                       onchange="this.form.submit()" @(Model.SelectedCapacities.Contains("xlarge") ? "checked" : "")>
-                                <label class="form-check-label">75+</label>
-                            </div>
-                                       
+                            }
                         
                             <p>Choose Equipment</p>
+                            @foreach (var option in Model.EquipmentOptions)
+                            {
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="SelectedEquipment" value="Projector"
-                                       onchange="this.form.submit()" @(Model.SelectedEquipment.Contains("Projector") ? "checked" : "")>
-                                <label class="form-check-label">Projector</label>
+                                <input data-post-on="change" id="@option.Value" class="form-check-input" type="checkbox" name="SelectedEquipment"
+                                    value="@option.Value"
+                                    checked="@(Model.SelectedEquipment.Contains(option.Value))"
+                                >
+                                <label class="form-check-label" for="@option.Value">@option.Label</label>
                             </div>
-    
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="SelectedEquipment" value="Whiteboard"
-                                       onchange="this.form.submit()" @(Model.SelectedEquipment.Contains("Whiteboard") ? "checked" : "")>
-                                <label class="form-check-label">Whiteboard</label>
-                            </div>
-
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="SelectedEquipment" value="Microphone"
-                                       onchange="this.form.submit()" @(Model.SelectedEquipment.Contains("Microphone") ? "checked" : "")>
-                                <label class="form-check-label">Microphone</label>
-                            </div>                     
+                            }
                         </form>
-                        
                     </div>
                 </div>
             </div>
@@ -99,39 +78,39 @@
             </div>
 
             <div class="index-grid d-flex flex-wrap justify-content-start gap-3">
-                @foreach (var room in Model.MeetingRooms)
+                @foreach (MeetingRoom room in Model.MeetingRooms)
                 {
-                    <div class="card mb-3 shadow-sm" style="flex: 0 1 500px;">
-                        <div class="row g-0 align-items-center">
-                            <div class="col-md-4">
-                                <img src="~/images/room.jpg" class="img-fluid rounded-start" alt="Room Image"
-                                     style="object-fit: cover; height: 200px;" />
-                            </div>
-                            <div class="col-md-8">
-                                <div class="card-body position-relative">
-                                    <div class="position-absolute top-0 end-0 p-3 text-muted">
-                                        <i class="fa-solid fa-users"></i> @room.Capacity
-                                    </div>
-                                    <h5 class="card-title pe-5">@room.Name </h5>
-
-                                    <p class="card-text">
-                                        <strong>Equipment:</strong>
-                                        @if (room.Equipment != null && room.Equipment.Any())
-                                        {
-                                            @string.Join(", ", room.Equipment)
-                                        }
-                                        else
-                                        {
-                                            <span>None</span>
-                                        }
-                                    </p>
-
-                                    <p class="card-text text-truncate" style="max-height: 50px;">@room.Description</p>
-                                    <a asp-page="./CreateBooking" asp-route-id="@room.RoomId" class="btn btn-primary">Book Now</a>
+                <div class="card mb-3 shadow-sm" style="flex: 0 1 500px;">
+                    <div class="row g-0 align-items-center">
+                        <div class="col-md-4">
+                            <img src="~/images/room.jpg" class="img-fluid rounded-start" alt="Room Image"
+                                    style="object-fit: cover; height: 200px;" />
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body position-relative">
+                                <div class="position-absolute top-0 end-0 p-3 text-muted">
+                                    <i class="fa-solid fa-users"></i> @room.Capacity
                                 </div>
+                                <h5 class="card-title pe-5">@room.Name </h5>
+
+                                <p class="card-text">
+                                    <strong>Equipment:</strong>
+                                    @if (room.Equipment != null && room.Equipment.Any())
+                                    {
+                                        @string.Join(", ", room.Equipment)
+                                    }
+                                    else
+                                    {
+                                        <span>None</span>
+                                    }
+                                </p>
+
+                                <p class="card-text text-truncate" style="max-height: 50px;">@room.Description</p>
+                                <a asp-page="./CreateBooking" asp-route-id="@room.RoomId" class="btn btn-primary">Book Now</a>
                             </div>
                         </div>
                     </div>
+                </div>
                 }
             </div>
         </div>
