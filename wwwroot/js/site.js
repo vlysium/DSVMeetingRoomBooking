@@ -3,11 +3,11 @@
 
 // Write your JavaScript code.
 
-// Listens for changes on any input element with a `data-post-on` attribute
+// Listens for changes on any input element with a `data-submit-on` attribute
 // and submits the form when the specified event occurs.
-const FormInputs = document.querySelectorAll("[data-post-on]");
+const FormInputs = document.querySelectorAll("[data-submit-on]");
 FormInputs.forEach(input => {
-	input.addEventListener(input.dataset.postOn, () => {
+	input.addEventListener(input.dataset.submitOn, () => {
 		input.form.submit();
 	});
 });

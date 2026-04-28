@@ -75,10 +75,6 @@ namespace DSVMeetingRoomBooking.Pages
             Console.WriteLine($"Selected Capacity: {SelectedCapacity}");
             Console.WriteLine($"Selected Equipment: {string.Join(", ", SelectedEquipment)}");
             MeetingRooms = _meetingRoomService.FilterMeetingRooms(SelectedCapacity, SelectedEquipment);
-        }
-
-        public void OnPostRoomAvailability()
-        {
             ShowRoomAvailability();
         }
 
@@ -98,13 +94,11 @@ namespace DSVMeetingRoomBooking.Pages
 
 
             AvailableRooms = new Dictionary<MeetingRoom, bool>();
-            foreach (var room in MeetingRooms)
+            foreach (MeetingRoom room in MeetingRooms)
             {
                 bool isAvailable = _bookingService.IsRoomAvailable(room.RoomId, timeSlot);
                 AvailableRooms.Add(room, isAvailable);
             }
-
-            Console.WriteLine($"Time Slot: {timeSlot.StartTime} - {timeSlot.EndTime}");
         }
     }
 }

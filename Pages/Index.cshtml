@@ -27,16 +27,39 @@
                 <h3>Filters</h3>
                 <p>SEARCH FILTERS COMING UP</p>
                 <div>
-                    <div>
-                        <p>Time filter</p>
-                    </div>
-                    <div>
-                        <form method="post" id="filterForm" asp-page-handler="Filter">
+                    <form method="post" id="filterForm" asp-page-handler="Filter">
+                        <div>
+                            <p>Time filter</p>
+                            <div class="booking-time-period-content">
+                                <div class="booking-time-date">
+                                    <label for="selected-day">Day</label>
+                                    @*
+                                        Earliest selectable date is current date
+                                        Latest selectable date is one month from current date
+                                    *@
+                                    <input id="selected-day" asp-for="SelectedDay" class="form-control" type="date" data-submit-on="blur"
+                                        min="@DateTime.Today.ToString("yyyy-MM-dd")" 
+                                        max="@DateTime.Today.AddMonths(1).ToString("yyyy-MM-dd")"
+                                    /> 
+                                </div>
+                                <div class="booking-time-range">
+                                    <div class="booking-time-start">
+                                        <label for="time-start">Time Start</label>
+                                        <input id="time-start" asp-for="TimeStart" class="form-control" type="time" step="300" asp-format="{0:HH:mm}" data-submit-on="blur" />
+                                    </div>
+                                    <div class="booking-time-end">
+                                        <label for="time-end">Time End</label>
+                                        <input id="time-end" asp-for="TimeEnd" class="form-control" type="time" step="300" asp-format="{0:HH:mm}" data-submit-on="blur" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
                             <p>Choose Capacity</p>
                             @foreach (var option in Model.CapacityOptions)
                             {
                             <div class="form-check">
-                                <input data-post-on="change" id="@option.Value" class="form-check-input" type="radio" name="SelectedCapacity"
+                                <input data-submit-on="change" id="@option.Value" class="form-check-input" type="radio" name="SelectedCapacity"
                                     value="@option.Value"
                                     checked="@(Model.SelectedCapacity == option.Value)"
                                 >
@@ -48,15 +71,15 @@
                             @foreach (var option in Model.EquipmentOptions)
                             {
                             <div class="form-check">
-                                <input data-post-on="change" id="@option.Value" class="form-check-input" type="checkbox" name="SelectedEquipment"
+                                <input data-submit-on="change" id="@option.Value" class="form-check-input" type="checkbox" name="SelectedEquipment"
                                     value="@option.Value"
                                     checked="@(Model.SelectedEquipment.Contains(option.Value))"
                                 >
                                 <label class="form-check-label" for="@option.Value">@option.Label</label>
                             </div>
                             }
-                        </form>
-                    </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -75,35 +98,6 @@
                         </div>
                     </form>
                 </div>
-            </div>
-
-            <div>
-                <form id="booking-time-period-form" class="booking-time-period-form" asp-page-handler="RoomAvailability" method="post">
-                    <h2 class="fs-3">Select a time to book your meeting</h2>
-                    <div class="booking-time-period-content">
-                        <div class="booking-time-date">
-                            <label for="selected-day">Day</label>
-                            @*
-                                Earliest selectable date is current date
-                                Latest selectable date is one month from current date
-                            *@
-                            <input id="selected-day" asp-for="SelectedDay" class="form-control" type="date" data-post-on="blur"
-                                min="@DateTime.Today.ToString("yyyy-MM-dd")" 
-                                max="@DateTime.Today.AddMonths(1).ToString("yyyy-MM-dd")"
-                            /> 
-                        </div>
-                        <div class="booking-time-range">
-                            <div class="booking-time-start">
-                                <label for="time-start">Time Start</label>
-                                <input id="time-start" asp-for="TimeStart" class="form-control" type="time" step="300" asp-format="{0:HH:mm}" data-post-on="blur" />
-                            </div>
-                            <div class="booking-time-end">
-                                <label for="time-end">Time End</label>
-                                <input id="time-end" asp-for="TimeEnd" class="form-control" type="time" step="300" asp-format="{0:HH:mm}" data-post-on="blur" />
-                            </div>
-                        </div>
-                    </div>
-                </form>
             </div>
 
             <div class="index-grid d-flex flex-wrap justify-content-start gap-3">
