@@ -6,12 +6,15 @@ namespace DSVMeetingRoomBooking.Services
 	public class MeetingRoomService
 	{
 		private readonly IMeetingRoomRepository _meetingRoomRepository;
+		private readonly BookingService _bookingService;
 		public List<MeetingRoom> _meetingRooms;
 
-		public MeetingRoomService(IMeetingRoomRepository meetingRoomRepository)
+		public MeetingRoomService(IMeetingRoomRepository meetingRoomRepository, BookingService bookingService)
 		{
 			_meetingRoomRepository = meetingRoomRepository;
+			_bookingService = bookingService;
 		}
+
 		public List<MeetingRoom> GetAllMeetingRooms()
 		{
 			_meetingRooms = _meetingRoomRepository.GetAllMeetingRooms();
