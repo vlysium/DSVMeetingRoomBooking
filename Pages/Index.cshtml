@@ -26,6 +26,59 @@
             <div class="p-4">
                 <h3>Filters</h3>
                 <p>SEARCH FILTERS COMING UP</p>
+                <div>
+                    <div>
+                        <p>Time filter</p>
+                    </div>
+                    <div>
+                        <form method="get" id="filterForm">
+                            <h5 class="card-title pe-5" card-title pe-5>
+                                Choose Capacity</h5>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="SelectedCapacities" value="small"
+                                       onchange="this.form.submit()" @(Model.SelectedCapacities.Contains("small") ? "checked" : "")>
+                                <label class="form-check-label">0-25</label>
+                            </div>
+    
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="SelectedCapacities" value="medium"
+                                       onchange="this.form.submit()" @(Model.SelectedCapacities.Contains("medium") ? "checked" : "")>
+                                <label class="form-check-label">25-50</label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="SelectedCapacities" value="large"
+                                       onchange="this.form.submit()" @(Model.SelectedCapacities.Contains("large") ? "checked" : "")>
+                                <label class="form-check-label">50-75</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="SelectedCapacities" value="xlarge"
+                                       onchange="this.form.submit()" @(Model.SelectedCapacities.Contains("xlarge") ? "checked" : "")>
+                                <label class="form-check-label">75+</label>
+                            </div>
+                                       
+                            <h5 class="card-title pe-5" card-title pe-5>Choose Equipment</h5>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="SelectedEquipment" value="Projector"
+                                       onchange="this.form.submit()" @(Model.SelectedEquipment.Contains("Projector") ? "checked" : "")>
+                                <label class="form-check-label">Projector</label>
+                            </div>
+    
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="SelectedEquipment" value="Whiteboard"
+                                       onchange="this.form.submit()" @(Model.SelectedEquipment.Contains("Whiteboard") ? "checked" : "")>
+                                <label class="form-check-label">Whiteboard</label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="SelectedEquipment" value="Microphone"
+                                       onchange="this.form.submit()" @(Model.SelectedEquipment.Contains("Microphone") ? "checked" : "")>
+                                <label class="form-check-label">Microphone</label>
+                            </div>                     
+                        </form>
+                        
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -103,7 +156,7 @@
                                     </p>
 
                                     <p class="card-text text-truncate" style="max-height: 50px;">@room.Description</p>
-                                    @if (Model.AvailableRooms.ContainsKey(room) && Model.AvailableRooms[room])
+                                    @* @if (Model.AvailableRooms.ContainsKey(room) && Model.AvailableRooms[room])
                                     {
                                         <div class="room-available">Available</div>
                                         <a asp-page="/CreateBooking" asp-route-id="@room.RoomId" class="btn btn-primary">Book Now</a>
@@ -111,7 +164,8 @@
                                     else
                                     {
                                         <div class="room-unavailable">Unavailable</div>
-                                    }
+                                    } *@
+                                    <a asp-page="/CreateBooking" asp-route-id="@room.RoomId" class="btn btn-primary">Book Now</a>
                                 </div>
                             </div>
                         </div>
