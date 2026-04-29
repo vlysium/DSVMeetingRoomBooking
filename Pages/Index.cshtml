@@ -1,5 +1,6 @@
 ﻿@page "/"
 @using DSVMeetingRoomBooking.Models
+@using System.Globalization
 @model IndexModel
 @{
   ViewData["Title"] = "Home page";
@@ -132,7 +133,15 @@
                                 @if (Model.AvailableRooms.ContainsKey(room) && Model.AvailableRooms[room])
                                 {
                                 <div class="room-available">Available</div>
-                                <a asp-page="/CreateBooking" asp-route-id="@room.RoomId" class="btn btn-primary">Book Now</a>
+                                <a class="btn btn-primary"
+                                    asp-page="/CreateBooking"
+                                    asp-route-id="@room.RoomId"
+                                    asp-route-date="@Model.SelectedDay.ToString("yyyy-MM-dd")"
+                                    asp-route-timeStart="@Model.TimeStart.ToString("HH:mm", CultureInfo.InvariantCulture)"
+                                    asp-route-timeEnd="@Model.TimeEnd.ToString("HH:mm", CultureInfo.InvariantCulture)"
+                                >
+                                    Book Now
+                                </a>
                                 }
                                 else
                                 {

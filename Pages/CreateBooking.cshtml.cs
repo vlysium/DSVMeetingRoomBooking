@@ -11,6 +11,15 @@ namespace DSVMeetingRoomBooking.Pages
         public required string RoomId { get; set; }
 
         [BindProperty]
+        public required DateTime SelectedDay { get; set; }
+
+        [BindProperty]
+        public required DateTime TimeStart { get; set; }
+
+        [BindProperty]
+        public required DateTime TimeEnd { get; set; }
+
+        [BindProperty]
         public required string EmployeeId { get; set; }
 
         [BindProperty]
@@ -27,9 +36,13 @@ namespace DSVMeetingRoomBooking.Pages
             _meetingRoomService = meetingRoomService;
         }
 
-        public IActionResult OnGet(string id)
+        public IActionResult OnGet(string id, string date, string timeStart, string timeEnd)
         {
             MeetingRoom = _meetingRoomService.GetMeetingRoomById(id);
+
+            SelectedDay = DateTime.Parse(date);
+            TimeStart = DateTime.Parse(timeStart);
+            TimeEnd = DateTime.Parse(timeEnd);
 
             // If the meeting room with the specified ID does not exist, redirect to the index page
             if (MeetingRoom == null)
@@ -43,7 +56,9 @@ namespace DSVMeetingRoomBooking.Pages
 
         public IActionResult OnPost()
         {
-            TimeSlot timeSlot = new TimeSlot(DateTime.Now, DateTime.Now.AddHours(1)); // temporary time slot for testing
+            TimeSlot timeSlot = new TimeSlot(TimeStart, TimeEnd).FormatTimeSlot(SelectedDay, TimeStart, TimeEnd);
+
+            Console.WriteLine($"StartTime: {TimeStart}, EndTime: {TimeEnd}");
 
             string comment = "";
             if (Comment != null)

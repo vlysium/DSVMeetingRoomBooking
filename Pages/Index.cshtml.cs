@@ -72,26 +72,13 @@ namespace DSVMeetingRoomBooking.Pages
 
         public void OnPostFilter()
         {
-            Console.WriteLine($"Selected Capacity: {SelectedCapacity}");
-            Console.WriteLine($"Selected Equipment: {string.Join(", ", SelectedEquipment)}");
             MeetingRooms = _meetingRoomService.FilterMeetingRooms(SelectedCapacity, SelectedEquipment);
             ShowRoomAvailability();
         }
 
         private void ShowRoomAvailability()
         {
-            DateTime formattedTimeStart = DateTime.Parse($"{SelectedDay:dd/MM/yyyy} {TimeStart:HH:mm}");
-
-            // Add a day to the end time if the start time is after the end time,
-            // to account for bookings that span past midnight
-            if (TimeStart > TimeEnd)
-            {
-                SelectedDay = SelectedDay.AddDays(1);
-            }
-
-            DateTime formattedTimeEnd = DateTime.Parse($"{SelectedDay:dd/MM/yyyy} {TimeEnd:HH:mm}");
-            TimeSlot timeSlot = new TimeSlot(formattedTimeStart, formattedTimeEnd);
-
+            TimeSlot timeSlot = new TimeSlot(TimeStart, TimeEnd).FormatTimeSlot(SelectedDay, TimeStart, TimeEnd);
 
             AvailableRooms = new Dictionary<MeetingRoom, bool>();
             foreach (MeetingRoom room in MeetingRooms)

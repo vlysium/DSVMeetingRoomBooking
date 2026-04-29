@@ -12,6 +12,18 @@ namespace DSVMeetingRoomBooking.Services
 			_bookingRepository = bookingRepository;
 		}
 
+		/// <summary>
+		/// Checks if a specific room is available for a given time slot by comparing the time slot with existing bookings for that room.
+		/// </summary>
+		/// <param name="roomId">
+		/// The unique identifier for the room to check.
+		/// </param>
+		/// <param name="timeslot">
+		/// The time slot to check for availability.
+		/// </param>
+		/// <returns>
+		/// True if the room is available for the specified time slot, otherwise false.
+		/// </returns>
 		public bool IsRoomAvailable(string roomId, TimeSlot timeslot)
 		{
 			List<Booking> allBookings = _bookingRepository.GetAll();
