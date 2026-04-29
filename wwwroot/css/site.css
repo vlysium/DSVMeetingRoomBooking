@@ -18,8 +18,9 @@
   margin: 0;
 }
 
-html {
-  position: relative;
+body {
+  display: flex;
+  flex-direction: column;
   min-height: 100svh;
 }
 
@@ -89,6 +90,7 @@ img {
 footer {
   background-color: var(--color-blue);
   color: var(--lightgrey) !important;
+  margin-top: auto;
 }
 
 .contrast-color {
