@@ -72,7 +72,7 @@ namespace DSVMeetingRoomBooking.Pages
             
             Booking booking = new Booking(EmployeeId, RoomId, timeSlot, comment);
             _bookingService.CreateBooking(booking);
-            return RedirectToPage("/Index");
+            return RedirectToPage("/BookingDetail", new { id = booking.Id, confirmation = true });
         }
     }
 }

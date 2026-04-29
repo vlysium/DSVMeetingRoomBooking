@@ -1,4 +1,4 @@
-/* #region booking form */
+/* #region booking form*/
 .booking-form-container {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
@@ -45,6 +45,11 @@
   width: 100%;
 }
 
+.booking-comment {
+  min-height: 1rem;
+  max-height: 8.5rem; /* Enough space for 5 lines of text before scrolling */
+}
+
 .booking-form-image {
   height: 100%;
   display: none;
@@ -53,7 +58,7 @@
     display: block;
   }
 }
-/* #endregion booking form */
+/* #endregion booking form*/
 /* #region bookings list */
 .booking-list {
   list-style: none;
@@ -111,3 +116,45 @@
   font-size: 1.125rem;
 }
 /* #endregion bookings list */
+/* #region booking details */
+.booking-details-container {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 1rem;
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.booking-details {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.booking-details-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.booking-details-label {
+  font-size: 1.25rem;
+  margin-bottom: 0;
+}
+
+.booking-details-value {
+  font-size: 1rem;
+  margin-bottom: 0;
+}
+
+.booking-details-image {
+  height: 100%;
+  display: none;
+
+  @media (min-width: 768px) {
+    display: block;
+  }
+}
+/* #endregion booking details */

@@ -1,4 +1,38 @@
 ﻿@page "/booking/{id}"
+@using DSVMeetingRoomBooking.Models
 @model DSVMeetingRoomBooking.Pages.BookingDetailModel
 @{
 }
+
+@if (Model.Confirmation)
+{
+<div class="alert alert-success" role="alert">
+	Your booking has been successfully created!
+</div>
+}
+<div class="container booking-details-container">
+	<div class="booking-details">
+		<h1>Booking details: @Model.Booking.Id</h1>
+		<hgroup class="booking-details-group">
+			<h2 class="booking-details-label">Booking period</h2>
+			@{
+				string startTime = @Model.Booking.TimeSlot.StartTime.ToString("MMMM d, HH:mm");
+				string endTime = @Model.Booking.TimeSlot.EndTime.ToString("HH:mm");
+			}
+			<time class="booking-details-value">@(startTime)—@(endTime)</time>
+		</hgroup>
+		<hgroup class="booking-details-group">
+			<h2 class="booking-details-label">Meeting Room</h2>
+			<p class="booking-details-value">@Model.MeetingRoom.Name</p>
+		</hgroup>
+		<hgroup class="booking-details-group">
+			<h2 class="booking-details-label">Employee ID</h2>
+			<p class="booking-details-value">@Model.Booking.EmployeeId</p>
+		</hgroup>
+		<hgroup class="booking-details-group">
+			<h2 class="booking-details-label">Booking comment</h2>
+			<p class="booking-details-value">"@(Model.Booking.Comment)"</p>
+		</hgroup>
+	</div>
+	<img class="booking-details-image" src="~/images/room.jpg" alt="Room Image" />
+</div>
