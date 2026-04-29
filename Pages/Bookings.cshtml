@@ -4,30 +4,35 @@
 @{
 }
 
-<div class="index-grid d-flex flex-wrap justify-content-start gap-3">
+<h1>Bookings</h1>
+<ul class="booking-list">
 @foreach (Booking booking in Model.Bookings)
 {
-	<div class="card mb-3 shadow-sm" style="flex: 0 1 500px;">
-		<div class="row g-0 align-items-center">
-			<div class="col-md-4">
-				<img src="~/images/room.jpg" class="img-fluid rounded-start" alt="Room Image" />
-			</div>
-			<div class="col-md-8">
-				<div class="card-body position-relative">
-					<h2>
-					@for (int i = 0; i < Model.MeetingRooms.Count; i++)
+	<li>
+		<a asp-page="/BookingDetail" asp-route-id="@booking.RoomId" class="booking-item">
+			<img src="~/images/room.jpg" class="booking-item-image" alt="Room Image" />
+			<div class="booking-item-content">
+				<h2 class="booking-room-name">
+				@for (int i = 0; i < Model.MeetingRooms.Count; i++)
+				{
+					if (Model.MeetingRooms[i].RoomId == booking.RoomId)
 					{
-						if (Model.MeetingRooms[i].RoomId == booking.RoomId)
-						{
-							@Model.MeetingRooms[i].Name
-						}
+						@Model.MeetingRooms[i].Name
 					}
-					</h2>
-					<h3 class="card-title pe-5 fs-5">@booking.Comment</h3>
-				</div>
+				}
+				</h2>
+				@{
+					string startTime = booking.TimeSlot.StartTime.ToString("MMMM d, HH:mm");
+					string endTime = booking.TimeSlot.EndTime.ToString("HH:mm");
+				}
+				<time class="booking-item-timeslot">@(startTime)—@(endTime)</time>
+				@if (booking.Comment != null)
+				{
+				<p class="booking-item-comment">"@(booking.Comment)"</p>
+				}
 			</div>
-		</div>
-	</div>
+		</a>
+	</li>
 }
-</div>
+</ul>
 
