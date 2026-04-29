@@ -1,12 +1,14 @@
 /*GLOBAL STYLES_____________________________________________________*/
 :root {
-  --lightblue: rgb(245, 245, 245);
-  --blue: rgb(0, 41, 102);
-  --lightgrey: #F5F5F5;
+  --blue: #0431a6;
+  --light-blue: rgb(245, 245, 245);
+  --dark-blue: rgb(0, 41, 102);
+  --light-grey: #F5F5F5;
   --contrast: #ffc107;
-  --color-cards: var(--lightgrey);
+  --color-cards: var(--light-grey);
   --color-blue: var(--blue);
-  --color-lightblue: var(--lightblue);
+  --color-dark-blue: var(--dark-blue);
+  --color-light-blue: var(--light-blue);
   --color-accent: var(--contrast);
 }
 
@@ -27,8 +29,53 @@ img {
   object-fit: cover;
 }
 
+.btn {
+  position: relative;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position: top;
+  border: none;
+  padding: 1rem 3rem;
+  border-radius: 0;
+
+  transition: background-size 0.3s linear;
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 0.25rem;
+    width: 100%;
+    transform-origin: right;
+    transform: scaleX(0);
+
+    transition: transform 0.3s linear;
+  }
+
+  &:hover, &:focus {
+    background-color: transparent;
+    background-size: 100% calc(100% - 0.5rem);
+
+    &::before {
+      transform-origin: left;
+      transform: scaleX(1);
+    }
+  }
+}
+
+.btn-primary {
+  background-image: linear-gradient(180deg, var(--blue), var(--blue));
+  color: var(--light-grey);
+
+  &::before {
+    background-color: var(--blue);
+  }
+}
+
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem --color-lightblue;
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem --color-light-blue;
 }
 
 /*HEADER_______________________________________*/
