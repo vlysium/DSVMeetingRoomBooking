@@ -5,14 +5,14 @@
 }
 
 <form method="post">
-    @* 1. Name *@
+  
     <div class="mb-3">
         <label asp-for="MeetingRoom.Name" class="form-label">Room Name</label>        
         <input asp-for="MeetingRoom.Name" class="form-control" placeholder="Boardroom A">
         <span asp-validation-for="MeetingRoom.Name" class="text-danger"></span>
     </div>
 
-    @* 2. Capacity *@
+ 
     <div class="mb-3">
         <label asp-for="MeetingRoom.Capacity" class="form-label">Capacity</label>
         <input asp-for="MeetingRoom.Capacity" class="form-control" type="number">
@@ -39,13 +39,13 @@
         </div>
     </div>
   
-    @* 4. Description *@
+    
     <div class="mb-3">
         <label asp-for="MeetingRoom.Description" class="form-label">Description</label>
         <textarea asp-for="MeetingRoom.Description" class="form-control" rows="3"></textarea>
         <span asp-validation-for="MeetingRoom.Description" class="text-danger"></span>
     </div>
 
-    @* 5. The One and Only Submit Button *@
+  
     <button type="submit" class="btn btn-primary">Create Room</button>
 </form>
