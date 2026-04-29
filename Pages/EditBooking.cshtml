@@ -14,7 +14,7 @@
 					Earliest selectable date is current date
 					Latest selectable date is one month from current date
 				*@
-				<input id="selected-day" asp-for="SelectedDay" class="form-control" type="date" value="@Model.SelectedDay.ToString("yyyy-MM-dd")"
+				<input id="selected-day" asp-for="SelectedDay" class="form-control" type="date" value="@Model.SelectedDay.ToString("yyyy-MM-dd")" required
 					min="@DateTime.Today.ToString("yyyy-MM-dd")"
 					max="@DateTime.Today.AddMonths(1).ToString("yyyy-MM-dd")"
 				/>
@@ -22,17 +22,17 @@
 			<div class="booking-time-range">
 				<div class="booking-time-start">
 					<label for="time-start">Time Start</label>
-					<input id="time-start" asp-for="TimeStart" class="form-control" type="time" step="60" asp-format="{0:HH:mm}" />
+					<input id="time-start" asp-for="TimeStart" class="form-control" type="time" step="60" asp-format="{0:HH:mm}" required />
 				</div>
 				<div class="booking-time-end">
 					<label for="time-end">Time End</label>
-					<input id="time-end" asp-for="TimeEnd" class="form-control" type="time" step="60" asp-format="{0:HH:mm}" />
+					<input id="time-end" asp-for="TimeEnd" class="form-control" type="time" step="60" asp-format="{0:HH:mm}" required />
 				</div>
 			</div>
 		</div>
 		<div>
 			<label for="room-id" class="form-label">Meeting Room</label>
-			<select class="form-select" asp-for="RoomId" id="room-id">
+			<select class="form-select" asp-for="RoomId" id="room-id" required>
 				@foreach (MeetingRoom meetingRoom in Model.MeetingRooms)
 				{
 					<option value="@meetingRoom.RoomId">@meetingRoom.Name</option>
@@ -42,7 +42,7 @@
 		</div>
 		<div>
 			<label for="employee-id" class="form-label">Employee ID</label>
-			<input type="text" class="form-control" asp-for="EmployeeId" id="employee-id"
+			<input type="text" class="form-control" asp-for="EmployeeId" id="employee-id" required
 				placeholder="Enter your employee ID"
 			/>
 		</div>

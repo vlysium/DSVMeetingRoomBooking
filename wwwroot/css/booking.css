@@ -50,6 +50,40 @@
   max-height: 8.5rem; /* Enough space for 5 lines of text before scrolling */
 }
 
+.booking-details-actions {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.5rem;
+
+  @media (min-width: 1200px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+#cancel-booking-modal {
+  background-color: transparent;
+  position: absolute;
+  max-width: 36rem;
+  padding: 1rem;
+  margin: auto;
+  border: none;
+}
+
+.cancel-booking-modal-content {
+  background-color: var(--color-cards);
+  padding: 1.5rem;
+}
+
+.cancel-booking-modal-actions {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.5rem;
+
+  @media (min-width: 576px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 .booking-form-image {
   height: 100%;
   display: none;

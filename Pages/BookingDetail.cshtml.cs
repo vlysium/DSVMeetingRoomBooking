@@ -35,11 +35,25 @@ namespace DSVMeetingRoomBooking.Pages
                 IsCreated = created;
                 IsUpdated = updated;
                 MeetingRoom = _meetingRoomService.GetMeetingRoomById(Booking.RoomId);
+                Console.WriteLine(Booking.TimeSlot.ToString());
                 return Page();
             }
             catch (Exception)
             {
                 return RedirectToPage("/Index"); // If the booking ID is not found, redirect to the index page
+            }
+        }
+
+        public IActionResult OnPost()
+        {
+            try
+            {
+                _bookingService.DeleteBooking(Booking.Id);
+                return RedirectToPage("/Index");
+            }
+            catch (Exception)
+            {
+                return Page();
             }
         }
     }

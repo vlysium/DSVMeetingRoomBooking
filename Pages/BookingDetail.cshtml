@@ -40,7 +40,22 @@ else if (Model.IsUpdated)
 			<h2 class="booking-details-label">Booking comment</h2>
 			<p class="booking-details-value">"@(Model.Booking.Comment)"</p>
 		</hgroup>
-		<a class="btn btn-primary w-100" asp-page="/EditBooking" asp-route-id="@Model.Booking.Id">Edit booking details</a>
+		<div class="booking-details-actions">
+			<a class="btn btn-primary w-100" asp-page="/EditBooking" asp-route-id="@Model.Booking.Id">Edit booking details</a>
+			<button command="show-modal" commandfor="cancel-booking-modal" class="btn btn-danger w-100">Cancel booking</button>
+			<dialog id="cancel-booking-modal">
+				<div class="cancel-booking-modal-content">
+					<h2 class="fs-4">Are you sure you want to cancel this booking?</h2>
+					<p>This action cannot be undone.</p>
+					<div class="cancel-booking-modal-actions">
+						<button type="button" class="btn btn-primary w-100" command="close" commandfor="cancel-booking-modal">Keep my booking</button>
+						<form method="post">
+							<button type="submit" class="btn btn-danger w-100">Cancel my booking</button>
+						</form>
+					</div>
+				</div>
+			</dialog>
+		</div>
 	</div>
 	<img class="booking-details-image" src="~/images/room.jpg" alt="Room Image" />
 </div>
