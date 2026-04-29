@@ -14,7 +14,10 @@ namespace DSVMeetingRoomBooking.Pages
         public Booking Booking { get; set; }
 
         [BindProperty]
-        public bool Confirmation { get; set; }
+        public bool IsCreated { get; set; }
+        
+        [BindProperty]
+        public bool IsUpdated { get; set; }
 
         public MeetingRoom MeetingRoom { get; set; }
 
@@ -24,12 +27,13 @@ namespace DSVMeetingRoomBooking.Pages
             _meetingRoomService = meetingRoomService;
             
         }
-        public IActionResult OnGet(string id, bool confirmation)
+        public IActionResult OnGet(string id, bool created, bool updated)
         {
             try
             {
                 Booking = _bookingService.GetBooking(id);
-                Confirmation = confirmation;
+                IsCreated = created;
+                IsUpdated = updated;
                 MeetingRoom = _meetingRoomService.GetMeetingRoomById(Booking.RoomId);
                 return Page();
             }

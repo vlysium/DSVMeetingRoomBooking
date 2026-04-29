@@ -4,12 +4,19 @@
 @{
 }
 
-@if (Model.Confirmation)
+@if (Model.IsCreated)
 {
 <div class="alert alert-success" role="alert">
 	Your booking has been successfully created!
 </div>
 }
+else if (Model.IsUpdated)
+{
+<div class="alert alert-success" role="alert">
+	Your booking has been successfully updated!
+</div>
+}
+
 <div class="container booking-details-container">
 	<div class="booking-details">
 		<h1>Booking details: @Model.Booking.Id</h1>
@@ -33,6 +40,7 @@
 			<h2 class="booking-details-label">Booking comment</h2>
 			<p class="booking-details-value">"@(Model.Booking.Comment)"</p>
 		</hgroup>
+		<a class="btn btn-primary w-100" asp-page="/EditBooking" asp-route-id="@Model.Booking.Id">Edit booking details</a>
 	</div>
 	<img class="booking-details-image" src="~/images/room.jpg" alt="Room Image" />
 </div>

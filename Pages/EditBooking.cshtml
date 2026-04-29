@@ -1,6 +1,58 @@
 ﻿@page "/booking/{id}/edit"
+@using DSVMeetingRoomBooking.Models
 @model DSVMeetingRoomBooking.Pages.EditBookingModel
 @{
 }
 
-<h1>Create Booking</h1>
+<div class="container booking-form-container">
+	<form method="post" class="booking-form" asp-page-handler="Update">
+		<h1>Edit booking details: @Model.Booking.Id</h1>
+		<div class="booking-time-period-content">
+			<div class="booking-time-date">
+				<label for="selected-day">Day</label>
+				@*
+					Earliest selectable date is current date
+					Latest selectable date is one month from current date
+				*@
+				<input id="selected-day" asp-for="SelectedDay" class="form-control" type="date" value="@Model.SelectedDay.ToString("yyyy-MM-dd")"
+					min="@DateTime.Today.ToString("yyyy-MM-dd")"
+					max="@DateTime.Today.AddMonths(1).ToString("yyyy-MM-dd")"
+				/>
+			</div>
+			<div class="booking-time-range">
+				<div class="booking-time-start">
+					<label for="time-start">Time Start</label>
+					<input id="time-start" asp-for="TimeStart" class="form-control" type="time" step="60" asp-format="{0:HH:mm}" />
+				</div>
+				<div class="booking-time-end">
+					<label for="time-end">Time End</label>
+					<input id="time-end" asp-for="TimeEnd" class="form-control" type="time" step="60" asp-format="{0:HH:mm}" />
+				</div>
+			</div>
+		</div>
+		<div>
+			<label for="room-id" class="form-label">Meeting Room</label>
+			<select class="form-select" asp-for="RoomId" id="room-id">
+				@foreach (MeetingRoom meetingRoom in Model.MeetingRooms)
+				{
+					<option value="@meetingRoom.RoomId">@meetingRoom.Name</option>
+				}
+			</select>
+			<span asp-validation-for="RoomId" class="text-danger"></span>
+		</div>
+		<div>
+			<label for="employee-id" class="form-label">Employee ID</label>
+			<input type="text" class="form-control" asp-for="EmployeeId" id="employee-id"
+				placeholder="Enter your employee ID"
+			/>
+		</div>
+		<div>
+			<label for="comment" class="form-label">Optional comment</label>
+			<textarea class="form-control booking-comment" asp-for="Comment" id="comment"
+				placeholder="Write an optional comment about the meeting"
+			></textarea>
+		</div>
+		<button type="submit" class="btn btn-primary">Save Changes</button>
+	</form>
+	<img class="booking-form-image" src="~/images/room.jpg" alt="Room Image" />
+</div>

@@ -22,11 +22,11 @@
 			<div class="booking-time-range">
 				<div class="booking-time-start">
 					<label for="time-start">Time Start</label>
-					<input id="time-start" asp-for="TimeStart" class="form-control" type="time" step="300" asp-format="{0:HH:mm}" />
+					<input id="time-start" asp-for="TimeStart" class="form-control" type="time" step="60" asp-format="{0:HH:mm}" />
 				</div>
 				<div class="booking-time-end">
 					<label for="time-end">Time End</label>
-					<input id="time-end" asp-for="TimeEnd" class="form-control" type="time" step="300" asp-format="{0:HH:mm}" />
+					<input id="time-end" asp-for="TimeEnd" class="form-control" type="time" step="60" asp-format="{0:HH:mm}" />
 				</div>
 			</div>
 		</div>
@@ -38,6 +38,7 @@
 					<option value="@meetingRoom.RoomId">@meetingRoom.Name</option>
 				}
 			</select>
+			<span asp-validation-for="RoomId" class="text-danger"></span>
 		</div>
 		<div>
 			<label for="employee-id" class="form-label">Employee ID</label>

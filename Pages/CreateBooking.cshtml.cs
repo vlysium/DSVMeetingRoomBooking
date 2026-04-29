@@ -34,45 +34,62 @@ namespace DSVMeetingRoomBooking.Pages
         {
             _bookingService = bookingService;
             _meetingRoomService = meetingRoomService;
+            MeetingRooms = meetingRoomService.GetAllMeetingRooms();
         }
 
         public IActionResult OnGet(string id, string date, string timeStart, string timeEnd)
         {
-            MeetingRooms = _meetingRoomService.GetAllMeetingRooms();
-
-            SelectedDay = DateTime.Parse(date);
-            TimeStart = DateTime.Parse(timeStart);
-            TimeEnd = DateTime.Parse(timeEnd);
-
-            
-            foreach (var meetingRoom in MeetingRooms)
+            try
             {
-                if (meetingRoom.RoomId == id)
+                SelectedDay = DateTime.Parse(date);
+                TimeStart = DateTime.Parse(timeStart);
+                TimeEnd = DateTime.Parse(timeEnd);
+
+                foreach (var meetingRoom in MeetingRooms)
                 {
-                    RoomId = id;
-                    return Page();
+                    if (meetingRoom.RoomId == id)
+                    {
+                        RoomId = id;
+                        return Page();
+                    }
                 }
+                
+                // If the room ID is not found, redirect to the index page
+                return RedirectToPage("/Index");
             }
-            
-            // If the room ID is not found, redirect to the index page
-            return RedirectToPage("/Index");
+            catch (Exception)
+            {
+                return RedirectToPage("/Index");
+            }
         }
 
         public IActionResult OnPost()
         {
-            TimeSlot timeSlot = new TimeSlot(TimeStart, TimeEnd).FormatTimeSlot(SelectedDay, TimeStart, TimeEnd);
-
-            Console.WriteLine($"StartTime: {TimeStart}, EndTime: {TimeEnd}");
-
-            string comment = "";
-            if (Comment != null)
+            try
             {
-                comment = Comment;
+                TimeSlot timeSlot = new TimeSlot(TimeStart, TimeEnd).FormatTimeSlot(SelectedDay, TimeStart, TimeEnd);
+
+                // Check if the room is available for the selected time slot
+                if (!_bookingService.IsRoomAvailable(RoomId, timeSlot))
+                {
+                    ModelState.AddModelError("RoomId", "The selected room is not available for the chosen time slot. Please select a different time or room.");
+                    return Page();
+                }
+
+                string comment = "";
+                if (Comment != null)
+                {
+                    comment = Comment;
+                }
+                
+                Booking booking = new Booking(EmployeeId, RoomId, timeSlot, comment);
+                _bookingService.CreateBooking(booking);
+                return RedirectToPage("/BookingDetail", new { id = booking.Id, created = true });
             }
-            
-            Booking booking = new Booking(EmployeeId, RoomId, timeSlot, comment);
-            _bookingService.CreateBooking(booking);
-            return RedirectToPage("/BookingDetail", new { id = booking.Id, confirmation = true });
+            catch (Exception)
+            {
+                return RedirectToPage("/Index");
+            }
         }
     }
 }
