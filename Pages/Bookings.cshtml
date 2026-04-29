@@ -9,7 +9,7 @@
 @foreach (Booking booking in Model.Bookings)
 {
 	<li>
-		<a asp-page="/BookingDetail" asp-route-id="@booking.RoomId" class="booking-item">
+		<a asp-page="/BookingDetail" asp-route-id="@booking.Id" class="booking-item">
 			<img src="~/images/room.jpg" class="booking-item-image" alt="Room Image" />
 			<div class="booking-item-content">
 				<h2 class="booking-room-name">
