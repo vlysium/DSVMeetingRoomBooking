@@ -25,7 +25,7 @@ namespace DSVMeetingRoomBooking.Pages
         [BindProperty]
         public string? Comment { get; set; }
 
-        public MeetingRoom MeetingRoom { get; set; }
+        public List<MeetingRoom> MeetingRooms { get; set; }
 
         private BookingService _bookingService;
         private MeetingRoomService _meetingRoomService;
@@ -38,20 +38,24 @@ namespace DSVMeetingRoomBooking.Pages
 
         public IActionResult OnGet(string id, string date, string timeStart, string timeEnd)
         {
-            MeetingRoom = _meetingRoomService.GetMeetingRoomById(id);
+            MeetingRooms = _meetingRoomService.GetAllMeetingRooms();
 
             SelectedDay = DateTime.Parse(date);
             TimeStart = DateTime.Parse(timeStart);
             TimeEnd = DateTime.Parse(timeEnd);
 
-            // If the meeting room with the specified ID does not exist, redirect to the index page
-            if (MeetingRoom == null)
+            
+            foreach (var meetingRoom in MeetingRooms)
             {
-                return RedirectToPage("/Index");
+                if (meetingRoom.RoomId == id)
+                {
+                    RoomId = id;
+                    return Page();
+                }
             }
             
-            // Do nothing if the meeting room exists
-            return Page();
+            // If the room ID is not found, redirect to the index page
+            return RedirectToPage("/Index");
         }
 
         public IActionResult OnPost()

@@ -1,14 +1,11 @@
 ﻿@page "/create-booking"
+@using DSVMeetingRoomBooking.Models
 @model DSVMeetingRoomBooking.Pages.CreateBookingModel
 @{
 }
 
 <h1>Create Booking</h1>
 <form method="post">
-	<div class="mb-3">
-		<input type="hidden" class="form-control" asp-for="RoomId" id="room-id" value="@Model.MeetingRoom.RoomId" />
-		<p>Meeting room selected: <b>@Model.MeetingRoom.Name</b></p>
-	</div>
 	<div class="booking-time-period-content mb-3">
 		<div class="booking-time-date">
 			<label for="selected-day">Day</label>
@@ -16,7 +13,7 @@
 				Earliest selectable date is current date
 				Latest selectable date is one month from current date
 			*@
-			<input id="selected-day" asp-for="SelectedDay" class="form-control" type="date" value="@Model.SelectedDay.ToString("yyyy-MM-dd")" disabled
+			<input id="selected-day" asp-for="SelectedDay" class="form-control" type="date" value="@Model.SelectedDay.ToString("yyyy-MM-dd")"
 				min="@DateTime.Today.ToString("yyyy-MM-dd")"
 				max="@DateTime.Today.AddMonths(1).ToString("yyyy-MM-dd")"
 			/>
@@ -24,13 +21,22 @@
 		<div class="booking-time-range">
 			<div class="booking-time-start">
 				<label for="time-start">Time Start</label>
-				<input id="time-start" asp-for="TimeStart" class="form-control" type="time" step="300" asp-format="{0:HH:mm}" disabled />
+				<input id="time-start" asp-for="TimeStart" class="form-control" type="time" step="300" asp-format="{0:HH:mm}" />
 			</div>
 			<div class="booking-time-end">
 				<label for="time-end">Time End</label>
-				<input id="time-end" asp-for="TimeEnd" class="form-control" type="time" step="300" asp-format="{0:HH:mm}" disabled />
+				<input id="time-end" asp-for="TimeEnd" class="form-control" type="time" step="300" asp-format="{0:HH:mm}" />
 			</div>
 		</div>
+	</div>
+	<div class="mb-3">
+		<label for="room-id" class="form-label">Meeting Room</label>
+		<select class="form-select" asp-for="RoomId" id="room-id">
+			@foreach (MeetingRoom meetingRoom in Model.MeetingRooms)
+			{
+				<option value="@meetingRoom.RoomId">@meetingRoom.Name</option>
+			}
+		</select>
 	</div>
 	<div class="mb-3">
 		<label for="employee-id" class="form-label">Employee ID</label>
