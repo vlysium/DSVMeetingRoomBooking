@@ -53,6 +53,10 @@ img {
 
     transition: transform 0.3s linear;
   }
+  
+  &:active {
+    background-color: transparent !important;
+  }
 
   &:hover, &:focus {
     background-color: transparent;
@@ -63,6 +67,7 @@ img {
       transform: scaleX(1);
     }
   }
+
 }
 
 .btn-primary {
