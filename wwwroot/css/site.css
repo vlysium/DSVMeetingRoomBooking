@@ -19,9 +19,12 @@
 }
 
 body {
-  display: flex;
-  flex-direction: column;
-  min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    min-height: 100svh;
+    font-family: "Roboto", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
 }
 
 img {
