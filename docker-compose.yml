@@ -1,0 +1,23 @@
+services:
+
+  dsv-meeting-room-booking:
+    image: vlysiumdev/dsv-meeting-room-booking:latest
+    container_name: dsv-meeting-room-booking_web
+    expose:
+      - "8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:8080
+    networks:
+      - nginx
+    volumes:
+      - app_data:/app/Data
+    restart: unless-stopped
+
+# use reverse proxy container on cloud server
+networks:
+  nginx:
+    external: true
+
+volumes:
+  app_data:
