@@ -33,9 +33,7 @@ namespace DSVMeetingRoomBooking.Pages
             (Equipment.Microphone, "Microphone")
         };
 
-        [BindProperty]
-        public string SearchTerm { get; set; }  // EmployeeId - used in `/bookings`
-
+        
         [BindProperty]
         public string SelectedCapacity { get; set; } = "all"; // Default value for capacity filter
 
@@ -61,15 +59,6 @@ namespace DSVMeetingRoomBooking.Pages
 
         public void OnGet() { }
         
-        public IActionResult OnPostSearchTerm()
-        {
-            if (string.IsNullOrWhiteSpace(SearchTerm))
-            {
-                return RedirectToPage("/Index");
-            }
-            return RedirectToPage("/Bookings", new { EmployeeId = SearchTerm });
-        }
-
         public void OnPostFilter()
         {
             MeetingRooms = _meetingRoomService.FilterMeetingRooms(SelectedCapacity, SelectedEquipment);
