@@ -62,6 +62,12 @@
   position: relative;
   background-color: rgba(var(--bs-light-rgb));
   padding: 1.5rem;
+  border-bottom: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color);
+
+  @media (min-width: 768px) {
+    border-bottom: none;
+    border-right: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color);
+  }
 }
 
 .filter-section {

@@ -37,16 +37,6 @@ h1 {
   margin-bottom: 0;
 }
 
-.nav-link {
-  color: black;
-  font-weight: 700;
-  text-underline-offset: 0.5rem;
-
-  &:hover, &:focus {
-    text-decoration: underline;
-  }
-}
-
 .btn {
   position: relative;
   background-color: transparent;
@@ -126,15 +116,22 @@ h1 {
 .nav-container {
   display: flex;
   justify-content: space-between;
-  gap: 1rem;
+  gap: 2rem;
   align-items: center;
   padding-inline: 1.5rem;
+}
+
+.navbar-nav {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
 }
 
 .logo {
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 0.25rem;
   padding: 0;
   margin: 0;
   color: var(--color-dark-blue);
@@ -154,6 +151,17 @@ h1 {
 
   &:hover, &:focus {
     color: var(--color-dark-blue);
+  }
+}
+
+.nav-link {
+  color: black;
+  font-weight: 700;
+  text-underline-offset: 0.5rem;
+  padding: 0.5rem;
+
+  &:hover, &:focus {
+    text-decoration: underline;
   }
 }
 
