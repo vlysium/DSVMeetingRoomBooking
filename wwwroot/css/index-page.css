@@ -147,6 +147,16 @@
 /* room list */
 .index-right-column {
   padding: 1.5rem;
+
+  @media (min-width: 1200px) {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 1rem;
+
+    h1 {
+      width: max-content;
+    }
+  }
 }
 
 .index-booking-time-wrapper {
@@ -167,6 +177,10 @@
     padding: 0;
     border: none;
   }
+
+  @media (min-width: 1200px) {
+    margin: 0;
+  }
 }
 
 .rooms-list {
@@ -177,6 +191,10 @@
   grid-template-columns: repeat(auto-fit, minmax(min(28rem, 100%), 1fr));
   grid-auto-rows: 1fr;
   gap: 1rem;
+
+  @media (min-width: 1200px) {
+    grid-column: 1 / 3;
+  }
 }
 
 .room-card {
