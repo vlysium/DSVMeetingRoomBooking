@@ -4,7 +4,7 @@
 @{
 }
 
-<div class="container booking-form-container">
+<div class="booking-form-container">
 	<form method="post" class="booking-form" asp-page-handler="Update">
 		<h1>Edit booking details: @Model.Booking.Id</h1>
 		<div class="booking-time-period-content">
@@ -32,7 +32,7 @@
 		</div>
 		<div>
 			<label for="room-id" class="form-label">Meeting Room</label>
-			<select class="form-select" asp-for="RoomId" id="room-id" required>
+			<select class="form-select form-control" asp-for="RoomId" id="room-id" required>
 				@foreach (MeetingRoom meetingRoom in Model.MeetingRooms)
 				{
 					<option value="@meetingRoom.RoomId">@meetingRoom.Name</option>

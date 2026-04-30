@@ -51,7 +51,6 @@
 .index-layout {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1rem;
 
   @media (min-width: 768px) {
     grid-template-columns: 250px 1fr;
@@ -59,12 +58,34 @@
 }
 
 /* filter section */
-.filter-section {
+.index-left-column {
+  position: relative;
   background-color: rgba(var(--bs-light-rgb));
-  padding: 1rem;
+  padding: 1.5rem;
+  border-bottom: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color);
+
+  @media (min-width: 768px) {
+    border-bottom: none;
+    border-right: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color);
+  }
+}
+
+.filter-section {
+  position: sticky;
+  top: 6.6875rem;
+}
+
+#filterForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
 /* room list */
+.index-right-column {
+  padding: 1.5rem;
+}
+
 .rooms-list {
   list-style: none;
   padding-left: 0;
@@ -82,7 +103,6 @@
   background-color: var(--color-cards);
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1rem;
   height: 100%;
 
   transition: box-shadow 0.5s ease-in-out;
@@ -105,7 +125,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  padding: 0.75rem;
+  padding: 1rem;
 }
 
 .room-card-capacity {
