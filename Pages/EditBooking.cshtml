@@ -2,6 +2,7 @@
 @using DSVMeetingRoomBooking.Models
 @model DSVMeetingRoomBooking.Pages.EditBookingModel
 @{
+  ViewData["Title"] = $"Edit Booking {Model.Booking.Id}";
 }
 
 <div class="booking-form-container">
@@ -9,7 +10,7 @@
 		<h1>Edit booking details: @Model.Booking.Id</h1>
 		<div class="booking-time-period-content">
 			<div class="booking-time-date">
-				<label for="selected-day">Day</label>
+				<label for="selected-day" class="form-label">Day</label>
 				@*
 					Earliest selectable date is current date
 					Latest selectable date is one month from current date
@@ -21,11 +22,11 @@
 			</div>
 			<div class="booking-time-range">
 				<div class="booking-time-start">
-					<label for="time-start">Time Start</label>
+					<label for="time-start" class="form-label">Time Start</label>
 					<input id="time-start" asp-for="TimeStart" class="form-control" type="time" step="60" asp-format="{0:HH:mm}" required />
 				</div>
 				<div class="booking-time-end">
-					<label for="time-end">Time End</label>
+					<label for="time-end" class="form-label">Time End</label>
 					<input id="time-end" asp-for="TimeEnd" class="form-control" type="time" step="60" asp-format="{0:HH:mm}" required />
 				</div>
 			</div>

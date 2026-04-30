@@ -35,7 +35,6 @@ namespace DSVMeetingRoomBooking.Pages
                 IsCreated = created;
                 IsUpdated = updated;
                 MeetingRoom = _meetingRoomService.GetMeetingRoomById(Booking.RoomId);
-                Console.WriteLine(Booking.TimeSlot.ToString());
                 return Page();
             }
             catch (Exception)

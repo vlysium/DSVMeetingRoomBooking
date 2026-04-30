@@ -21,80 +21,77 @@
 </div> *@
 
 
-<div class="">
-    <div class="index-layout">
+
+<div class="index-layout">
+    <form method="get" id="filter-form">
         <div class="index-left-column">
-            <div class="filter-section">
-                <h3>Filters</h3>
+            <details open class="filter-section">
+                <summary>Filters</summary>
                 @* <p>SEARCH FILTERS COMING UP</p> *@
-                <div>
-                    <form method="post" id="filterForm" asp-page-handler="Filter">
-                        <div>
-                            <p class="mb-2 fw-bold">Time filter</p>
-                            <div class="booking-time-period-content">
-                                <div class="booking-time-date">
-                                    <label for="selected-day">Day</label>
-                                    @*
-                                        Earliest selectable date is current date
-                                        Latest selectable date is one month from current date
-                                    *@
-                                    <input id="selected-day" asp-for="SelectedDay" class="form-control" type="date" data-submit-on="blur"
-                                        min="@DateTime.Today.ToString("yyyy-MM-dd")" 
-                                        max="@DateTime.Today.AddMonths(1).ToString("yyyy-MM-dd")"
-                                    /> 
-                                </div>
-                                <div class="booking-time-range">
-                                    <div class="booking-time-start">
-                                        <label for="time-start">Time Start</label>
-                                        <input id="time-start" asp-for="TimeStart" class="form-control" type="time" step="60" asp-format="{0:HH:mm}" data-submit-on="blur" />
-                                    </div>
-                                    <div class="booking-time-end">
-                                        <label for="time-end">Time End</label>
-                                        <input id="time-end" asp-for="TimeEnd" class="form-control" type="time" step="60" asp-format="{0:HH:mm}" data-submit-on="blur" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div>
-                            <p class="mb-2 fw-bold">Choose Capacity</p>
-                            <ul class="ps-0">
-                            @foreach (var option in Model.CapacityOptions)
-                            {
-                                <li class="form-check">
-                                    <input data-submit-on="change" id="@option.Value" class="form-check-input" type="radio" name="SelectedCapacity"
-                                        value="@option.Value"
-                                        checked="@(Model.SelectedCapacity == option.Value)"
-                                    >
-                                    <label class="form-check-label" for="@option.Value">@option.Label</label>
-                                </li>
-                            }
-                            </ul>
-                        </div>
-                        <div>
-                            <p class="mb-2 fw-bold">Choose Equipment</p>
-                            <ul class="ps-0">
-                            @foreach (var option in Model.EquipmentOptions)
-                            {
-                                <li class="form-check">
-                                    <input data-submit-on="change" id="@option.Value" class="form-check-input" type="checkbox" name="SelectedEquipment"
-                                        value="@option.Value"
-                                        checked="@(Model.SelectedEquipment.Contains(option.Value))"
-                                    >
-                                    <label class="form-check-label" for="@option.Value">@option.Label</label>
-                                </li>
-                            }
-                            </ul>
-                        </div>
-                    </form>
+                <div class="filter-option-wrapper">
+                    <div>
+                        <p class="filter-options-label">Capacity</p>
+                        <ul class="filter-options">
+                        @foreach (var option in Model.CapacityOptions)
+                        {
+                            <li class="form-check">
+                                <input data-submit-on="change" id="@option.Value" class="form-check-input" type="radio" name="SelectedCapacity"
+                                    value="@option.Value"
+                                    checked="@(Model.SelectedCapacity == option.Value)"
+                                >
+                                <label class="form-check-label" for="@option.Value">@option.Label</label>
+                            </li>
+                        }
+                        </ul>
+                    </div>
+                    <div >
+                        <p class="filter-options-label">Equipment</p>
+                        <ul class="filter-options">
+                        @foreach (var option in Model.EquipmentOptions)
+                        {
+                            <li class="form-check">
+                                <input data-submit-on="change" id="@option.Value" class="form-check-input" type="checkbox" name="SelectedEquipment"
+                                    value="@option.Value"
+                                    checked="@(Model.SelectedEquipment.Contains(option.Value))"
+                                >
+                                <label class="form-check-label" for="@option.Value">@option.Label</label>
+                            </li>
+                        }
+                        </ul>
+                    </div>
                 </div>
-            </div>
+            </details>
         </div>
 
-       
+        
         <div class="index-right-column">
-            <div class="d-flex align-items-center justify-content-between gap-4 flex-wrap mb-4">
-                <h1>Meeting Rooms</h1>
+            <h1>Meeting Rooms</h1>
+            <div class="index-booking-time-wrapper">
+                <div class="booking-time-period-content">
+                    <div class="booking-time-date">
+                        <label for="selected-day">Day</label>
+                        @*
+                            Earliest selectable date is current date
+                            Latest selectable date is one month from current date
+                        *@
+                        <input id="selected-day" asp-for="SelectedDay" class="form-control" type="date" data-submit-on="blur"
+                            min="@DateTime.Today.ToString("yyyy-MM-dd")" 
+                            max="@DateTime.Today.AddMonths(1).ToString("yyyy-MM-dd")"
+                        /> 
+                    </div>
+                    <div class="booking-time-range">
+                        <div class="booking-time-start">
+                            <label for="time-start">Time Start</label>
+                            <input id="time-start" asp-for="TimeStart" class="form-control" type="time" step="60" asp-format="{0:HH:mm}" data-submit-on="blur" />
+                        </div>
+                        <div class="booking-time-end">
+                            <label for="time-end">Time End</label>
+                            <input id="time-end" asp-for="TimeEnd" class="form-control" type="time" step="60" asp-format="{0:HH:mm}" data-submit-on="blur" />
+                        </div>
+                    </div>
+                </div>
             </div>
+
 
             <ul class="rooms-list">
                 @foreach (MeetingRoom room in Model.MeetingRooms)
@@ -128,7 +125,7 @@
                                 asp-route-timeStart="@Model.TimeStart.ToString("HH:mm", CultureInfo.InvariantCulture)"
                                 asp-route-timeEnd="@Model.TimeEnd.ToString("HH:mm", CultureInfo.InvariantCulture)"
                             >
-                                Book Now
+                                Book now
                             </a>
                             }
                             else
@@ -141,6 +138,6 @@
                 }
             </ul>
         </div>
-    </div>
+    </form>
 </div>
    

@@ -2,6 +2,7 @@
 @using DSVMeetingRoomBooking.Models
 @model DSVMeetingRoomBooking.Pages.BookingsModel
 @{
+  ViewData["Title"] = "Bookings";
 }
 
 <div class="bookings-container">
@@ -20,7 +21,7 @@
 	@foreach (Booking booking in Model.Bookings)
 	{
 		<li>
-			<a asp-page="/BookingDetail" asp-route-id="@booking.Id" class="booking-item">
+			<div class="booking-item">
 				<img src="~/images/room.jpg" class="booking-item-image" alt="Room Image" />
 				<div class="booking-item-content">
 					@{
@@ -43,8 +44,9 @@
 					{
 					<p class="booking-item-comment">"@(booking.Comment)"</p>
 					}
+					<a asp-page="/BookingDetail" asp-route-id="@booking.Id" class="btn btn-primary mt-auto">View booking</a>
 				</div>
-			</a>
+			</div>
 		</li>
 	}
 	</ul>
