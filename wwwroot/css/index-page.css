@@ -87,8 +87,8 @@
   display: contents;
 }
 
-/* filter section */
-.index-left-column {
+/* filter section (duplicate?? skal slettes?) */
+/*.index-left-column {
   position: relative;
   background-color: rgba(var(--bs-light-rgb));
   padding: 1.5rem;
@@ -99,7 +99,7 @@
     min-height: calc(100vh - 10.82425rem);
     border-right: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color);
   }
-}
+}*/
 
 .filter-section {
   position: sticky;
