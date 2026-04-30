@@ -2,6 +2,7 @@
 @using DSVMeetingRoomBooking.Models
 @model DSVMeetingRoomBooking.Pages.BookingDetailModel
 @{
+  ViewData["Title"] = $"Booking Details {Model.Booking.Id}";
 }
 
 @if (Model.IsCreated)
