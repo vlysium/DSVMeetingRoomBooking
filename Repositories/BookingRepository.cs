@@ -5,7 +5,7 @@ namespace DSVMeetingRoomBooking.Repositories
 {
 	public class BookingRepository : IBookingRepository
 	{
-		private readonly string path = @"Data/bookings.json";
+		private readonly string path = Path.Combine("Data", "bookings.json");
 		List<Booking> bookings = new List<Booking>();
 
 		public BookingRepository()

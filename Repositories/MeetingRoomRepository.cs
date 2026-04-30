@@ -6,7 +6,7 @@ namespace DSVMeetingRoomBooking.Repositories
 {
 	public class MeetingRoomRepository : IMeetingRoomRepository
     {
-		private string _filePath = @"Data/rooms.json";
+		private string _filePath = Path.Combine("Data", "rooms.json");
 
 		public List<MeetingRoom> _meetingRooms;
 
