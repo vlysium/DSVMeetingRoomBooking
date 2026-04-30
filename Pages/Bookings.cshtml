@@ -23,7 +23,14 @@
 			<a asp-page="/BookingDetail" asp-route-id="@booking.Id" class="booking-item">
 				<img src="~/images/room.jpg" class="booking-item-image" alt="Room Image" />
 				<div class="booking-item-content">
-					<h2 class="booking-room-name">
+					@{
+						string startTime = booking.TimeSlot.StartTime.ToString("MMMM d, HH:mm");
+						string endTime = DateTime.Compare(booking.TimeSlot.StartTime.Date, booking.TimeSlot.EndTime.Date) < 0
+							? booking.TimeSlot.EndTime.ToString("MMMM d, HH:mm") // If the end time is on a different day than the start time, include the date in the end time
+							: booking.TimeSlot.EndTime.ToString("HH:mm"); // Otherwise, just show the time for the end time
+					}
+					<h2><time class="booking-item-timeslot">@(startTime)—@(endTime)</time></h2>
+					<p class="booking-room-name">
 					@for (int i = 0; i < Model.MeetingRooms.Count; i++)
 					{
 						if (Model.MeetingRooms[i].RoomId == booking.RoomId)
@@ -31,14 +38,7 @@
 							@Model.MeetingRooms[i].Name
 						}
 					}
-					</h2>
-					@{
-						string startTime = booking.TimeSlot.StartTime.ToString("MMMM d, HH:mm");
-						string endTime = DateTime.Compare(booking.TimeSlot.StartTime.Date, booking.TimeSlot.EndTime.Date) < 0
-							? booking.TimeSlot.EndTime.ToString("MMMM d, HH:mm") // If the end time is on a different day than the start time, include the date in the end time
-							: booking.TimeSlot.EndTime.ToString("HH:mm"); // Otherwise, just show the time for the end time
-					}
-					<time class="booking-item-timeslot">@(startTime)—@(endTime)</time>
+					</p>
 					@if (booking.Comment != null)
 					{
 					<p class="booking-item-comment">"@(booking.Comment)"</p>
