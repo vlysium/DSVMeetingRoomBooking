@@ -23,12 +23,12 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100svh;
-    display: flex;
-    flex-direction: column;
-    min-height: 100svh;
-    font-family: "Roboto", sans-serif;
-    font-optical-sizing: auto;
-    font-style: normal;
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+  font-family: "Roboto", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
 }
 
 img {
@@ -38,7 +38,7 @@ img {
 }
 
 h1 {
-  font-size: calc(1.475rem + 2.7vw);
+  font-size: clamp(2rem, 5vw, 3rem);
   font-weight: 300;
   margin-bottom: 0;
 }
@@ -172,9 +172,10 @@ h1 {
 }
 
 /*FOOTER_______________________________________*/
-footer {
+.footer {
   background-color: var(--color-dark-blue);
-  color: var(--lightgrey) !important;
+  color: var(--light-grey);
+  padding: 1.5rem;
   margin-top: auto;
 }
 

@@ -169,7 +169,9 @@
 }
 
 .booking-item-comment {
-  font-size: 1.125rem;
+  font-size: 1rem;
+  max-height: 3lh; /* Limit to 2 lines of text */
+  overflow: hidden;
 }
 /* #endregion bookings list */
 /* #region booking details */
