@@ -34,20 +34,20 @@ namespace DSVMeetingRoomBooking.Pages
         };
 
         
-        [BindProperty]
-        public string SelectedCapacity { get; set; } = "all"; // Default value for capacity filter
+        [BindProperty(SupportsGet = true)]
+        public string SelectedCapacity { get; set; }
 
-        [BindProperty]
+        [BindProperty(SupportsGet = true)]
         public List<Equipment> SelectedEquipment { get; set; } = new List<Equipment>();
 
-        [BindProperty]
-        public DateTime SelectedDay { get; set; } = DateOnly.FromDateTime(DateTime.Now).ToDateTime(TimeOnly.MinValue);
+        [BindProperty(SupportsGet = true)]
+        public DateTime SelectedDay { get; set; }
 
-        [BindProperty]
-        public DateTime TimeStart { get; set; } = DateTime.Now;
+        [BindProperty(SupportsGet = true)]
+        public DateTime TimeStart { get; set; }
 
-        [BindProperty]
-        public DateTime TimeEnd { get; set; } = DateTime.Now.AddHours(1);
+        [BindProperty(SupportsGet = true)]
+        public DateTime TimeEnd { get; set; }
 
         public IndexModel(MeetingRoomService meetingRoomService, BookingService bookingService)
         {
@@ -57,10 +57,14 @@ namespace DSVMeetingRoomBooking.Pages
             ShowRoomAvailability();
         }
 
-        public void OnGet() { }
-        
-        public void OnPostFilter()
+        public void OnGet(string selectedCapacity, List<Equipment> selectedEquipment, DateTime selectedDay, DateTime timeStart, DateTime timeEnd)
         {
+            SelectedCapacity = selectedCapacity ?? "all"; // Default to "all" if no capacity is selected
+            SelectedEquipment = selectedEquipment; 
+            SelectedDay = selectedDay.Date == DateTime.MinValue.Date ? DateOnly.FromDateTime(DateTime.Now).ToDateTime(TimeOnly.MinValue) : selectedDay; // Default to current day if no date is selected
+            TimeStart = timeStart == DateTime.MinValue ? DateTime.Now : timeStart; // Default to current time if no start time is selected
+            TimeEnd = timeEnd == DateTime.MinValue ? DateTime.Now.AddHours(1) : timeEnd; // Default to one hour from now if no end time is selected
+
             MeetingRooms = _meetingRoomService.FilterMeetingRooms(SelectedCapacity, SelectedEquipment);
             ShowRoomAvailability();
         }
