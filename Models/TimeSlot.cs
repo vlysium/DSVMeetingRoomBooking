@@ -33,6 +33,38 @@ namespace DSVMeetingRoomBooking.Models
 			return EndTime - StartTime;
 		}
 
+		/// <summary>
+		/// A helper method to create a TimeSlot object from a given date, start time, and end time,
+		/// formatting the times in the `dd/MM/yyyy HH:mm` format. This method also accounts for bookings
+		/// that span past midnight by adding a day to the end time if the start time is after the end time.
+		/// </summary>
+		/// <param name="date">
+		/// The date for the time slot.
+		/// </param>
+		/// <param name="startTime">
+		/// The start time for the time slot.
+		/// </param>
+		/// <param name="endTime">
+		/// The end time for the time slot.
+		/// </param>
+		/// <returns>
+		/// A new TimeSlot object representing the specified date and times in the format `dd/MM/yyyy HH:mm`.
+		/// </returns>
+		public TimeSlot FormatTimeSlot(DateTime date, DateTime startTime, DateTime endTime)
+		{
+			DateTime formattedTimeStart = DateTime.Parse($"{date:dd/MM/yyyy} {startTime:HH:mm}");
+
+            // Add a day to the end time if the start time is after the end time,
+            // to account for bookings that span past midnight
+            if (startTime > endTime)
+            {
+                date = date.AddDays(1);
+            }
+
+            DateTime formattedTimeEnd = DateTime.Parse($"{date:dd/MM/yyyy} {endTime:HH:mm}");
+            return new TimeSlot(formattedTimeStart, formattedTimeEnd);
+		}
+
 		public override string ToString()
 		{
 			return $"{StartTime:HH:mm} - {EndTime:HH:mm}";

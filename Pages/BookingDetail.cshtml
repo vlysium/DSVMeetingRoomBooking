@@ -1,4 +1,61 @@
 ﻿@page "/booking/{id}"
+@using DSVMeetingRoomBooking.Models
 @model DSVMeetingRoomBooking.Pages.BookingDetailModel
 @{
 }
+
+@if (Model.IsCreated)
+{
+<div class="alert alert-success" role="alert">
+	Your booking has been successfully created!
+</div>
+}
+else if (Model.IsUpdated)
+{
+<div class="alert alert-success" role="alert">
+	Your booking has been successfully updated!
+</div>
+}
+
+<div class="container booking-details-container">
+	<div class="booking-details">
+		<h1>Booking details: @Model.Booking.Id</h1>
+		<hgroup class="booking-details-group">
+			<h2 class="booking-details-label">Booking period</h2>
+			@{
+				string startTime = @Model.Booking.TimeSlot.StartTime.ToString("MMMM d, HH:mm");
+				string endTime = @Model.Booking.TimeSlot.EndTime.ToString("HH:mm");
+			}
+			<time class="booking-details-value">@(startTime)—@(endTime)</time>
+		</hgroup>
+		<hgroup class="booking-details-group">
+			<h2 class="booking-details-label">Meeting Room</h2>
+			<p class="booking-details-value">@Model.MeetingRoom.Name</p>
+		</hgroup>
+		<hgroup class="booking-details-group">
+			<h2 class="booking-details-label">Employee ID</h2>
+			<p class="booking-details-value">@Model.Booking.EmployeeId</p>
+		</hgroup>
+		<hgroup class="booking-details-group">
+			<h2 class="booking-details-label">Booking comment</h2>
+			<p class="booking-details-value">"@(Model.Booking.Comment)"</p>
+		</hgroup>
+		<div class="booking-details-actions">
+			<a class="btn btn-primary w-100" asp-page="/EditBooking" asp-route-id="@Model.Booking.Id">Edit booking details</a>
+			<button command="show-modal" commandfor="cancel-booking-modal" class="btn btn-danger w-100">Cancel booking</button>
+			<dialog id="cancel-booking-modal">
+				<div class="cancel-booking-modal-content">
+					<h2 class="fs-4">Are you sure you want to cancel this booking?</h2>
+					<p>This action cannot be undone.</p>
+					<div class="cancel-booking-modal-actions">
+						<button type="button" class="btn btn-primary w-100" command="close" commandfor="cancel-booking-modal">Keep my booking</button>
+						<form method="post">
+							<button type="submit" class="btn btn-danger w-100">Cancel my booking</button>
+						</form>
+					</div>
+				</div>
+			</dialog>
+		</div>
+	</div>
+	<img class="booking-details-image" src="~/images/room.jpg" alt="Room Image" />
+</div>

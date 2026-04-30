@@ -12,10 +12,23 @@ namespace DSVMeetingRoomBooking.Services
 			_bookingRepository = bookingRepository;
 		}
 
-		public bool IsRoomAvailable(string roomId, TimeSlot timeslot)
+		/// <summary>
+		/// Checks if a specific room is available for a given time slot by comparing the time slot with existing bookings for that room.
+		/// </summary>
+		/// <param name="roomId">
+		/// The unique identifier for the room to check.
+		/// </param>
+		/// <param name="timeslot">
+		/// The time slot to check for availability.
+		/// </param>
+		/// <returns>
+		/// True if the room is available for the specified time slot, otherwise false.
+		/// </returns>
+		public bool IsRoomAvailable(string roomId, TimeSlot timeslot, string? bookingId = null)
 		{
-			List<Booking> allBookings = _bookingRepository.GetAll();
-			foreach (Booking booking in allBookings)
+			List<Booking> bookings = _bookingRepository.GetAll();
+
+			foreach (Booking booking in bookings)
 			{
 				// Check if the booking is for the same room
 				if (booking.RoomId != roomId)
@@ -23,7 +36,12 @@ namespace DSVMeetingRoomBooking.Services
 					continue;
 				}
 
-				// Check if the timeslot overlaps with the booking's timeslot
+				// Skip the same booking when updating an existing booking
+				if (bookingId != null && booking.Id == bookingId)
+				{
+					continue;
+				}
+
 				if (timeslot.StartTime < booking.TimeSlot.EndTime && timeslot.EndTime > booking.TimeSlot.StartTime)
 				{
 					return false;

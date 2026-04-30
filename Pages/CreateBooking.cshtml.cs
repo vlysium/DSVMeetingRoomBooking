@@ -11,12 +11,21 @@ namespace DSVMeetingRoomBooking.Pages
         public required string RoomId { get; set; }
 
         [BindProperty]
+        public required DateTime SelectedDay { get; set; }
+
+        [BindProperty]
+        public required DateTime TimeStart { get; set; }
+
+        [BindProperty]
+        public required DateTime TimeEnd { get; set; }
+
+        [BindProperty]
         public required string EmployeeId { get; set; }
 
         [BindProperty]
         public string? Comment { get; set; }
 
-        public MeetingRoom MeetingRoom { get; set; }
+        public List<MeetingRoom> MeetingRooms { get; set; }
 
         private BookingService _bookingService;
         private MeetingRoomService _meetingRoomService;
@@ -25,35 +34,62 @@ namespace DSVMeetingRoomBooking.Pages
         {
             _bookingService = bookingService;
             _meetingRoomService = meetingRoomService;
+            MeetingRooms = meetingRoomService.GetAllMeetingRooms();
         }
 
-        public IActionResult OnGet(string id)
+        public IActionResult OnGet(string id, string date, string timeStart, string timeEnd)
         {
-            MeetingRoom = _meetingRoomService.GetMeetingRoomById(id);
+            try
+            {
+                SelectedDay = DateTime.Parse(date);
+                TimeStart = DateTime.Parse(timeStart);
+                TimeEnd = DateTime.Parse(timeEnd);
 
-            // If the meeting room with the specified ID does not exist, redirect to the index page
-            if (MeetingRoom == null)
+                foreach (var meetingRoom in MeetingRooms)
+                {
+                    if (meetingRoom.RoomId == id)
+                    {
+                        RoomId = id;
+                        return Page();
+                    }
+                }
+                
+                // If the room ID is not found, redirect to the index page
+                return RedirectToPage("/Index");
+            }
+            catch (Exception)
             {
                 return RedirectToPage("/Index");
             }
-            
-            // Do nothing if the meeting room exists
-            return Page();
         }
 
         public IActionResult OnPost()
         {
-            TimeSlot timeSlot = new TimeSlot(DateTime.Now, DateTime.Now.AddHours(1)); // temporary time slot for testing
-
-            string comment = "";
-            if (Comment != null)
+            try
             {
-                comment = Comment;
+                TimeSlot timeSlot = new TimeSlot(TimeStart, TimeEnd).FormatTimeSlot(SelectedDay, TimeStart, TimeEnd);
+
+                // Check if the room is available for the selected time slot
+                if (!_bookingService.IsRoomAvailable(RoomId, timeSlot))
+                {
+                    ModelState.AddModelError("RoomId", "The selected room is not available for the chosen time slot. Please select a different time or room.");
+                    return Page();
+                }
+
+                string comment = "";
+                if (Comment != null)
+                {
+                    comment = Comment;
+                }
+                
+                Booking booking = new Booking(EmployeeId, RoomId, timeSlot, comment);
+                _bookingService.CreateBooking(booking);
+                return RedirectToPage("/BookingDetail", new { id = booking.Id, created = true });
             }
-            
-            Booking booking = new Booking(EmployeeId, RoomId, timeSlot, comment);
-            _bookingService.CreateBooking(booking);
-            return RedirectToPage("/Index");
+            catch (Exception)
+            {
+                return RedirectToPage("/Index");
+            }
         }
     }
 }

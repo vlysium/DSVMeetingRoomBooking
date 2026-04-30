@@ -145,8 +145,7 @@ namespace DSVMeetingRoomBooking.Repositories
 				throw new Exception($"An error occurred while retrieving the booking: {ex.Message}", ex);
 			}
 		}
-
-		
+	
 		public void Update(Booking booking)
 		{
 			try
