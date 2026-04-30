@@ -7,6 +7,8 @@ namespace DSVMeetingRoomBooking.Pages
 {
     public class BookingsModel : PageModel
     {
+        [BindProperty]
+        public string SearchTerm { get; set; }
         public List<Booking> Bookings { get; set; }
         public List<MeetingRoom> MeetingRooms { get; set; }
         private readonly BookingService _bookingService;
@@ -30,6 +32,15 @@ namespace DSVMeetingRoomBooking.Pages
             //så skal en funktion skrives (foreach booking...) så brugerens MeetingRooms gøres til en liste
             //der der kan bruges til visning i bookings.cshtml            
          
+        }
+
+        public IActionResult OnPostSearchTerm()
+        {
+            if (string.IsNullOrWhiteSpace(SearchTerm))
+            {
+                return Page();
+            }
+            return RedirectToPage("/Bookings", new { EmployeeId = SearchTerm });
         }
     }
 }

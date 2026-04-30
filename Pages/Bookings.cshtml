@@ -4,37 +4,48 @@
 @{
 }
 
-<h1>Bookings</h1>
-<ul class="booking-list">
-@foreach (Booking booking in Model.Bookings)
-{
-	<li>
-		<a asp-page="/BookingDetail" asp-route-id="@booking.Id" class="booking-item">
-			<img src="~/images/room.jpg" class="booking-item-image" alt="Room Image" />
-			<div class="booking-item-content">
-				<h2 class="booking-room-name">
-				@for (int i = 0; i < Model.MeetingRooms.Count; i++)
-				{
-					if (Model.MeetingRooms[i].RoomId == booking.RoomId)
-					{
-						@Model.MeetingRooms[i].Name
-					}
-				}
-				</h2>
-				@{
-					string startTime = booking.TimeSlot.StartTime.ToString("MMMM d, HH:mm");
-					string endTime = DateTime.Compare(booking.TimeSlot.StartTime.Date, booking.TimeSlot.EndTime.Date) < 0
-						? booking.TimeSlot.EndTime.ToString("MMMM d, HH:mm") // If the end time is on a different day than the start time, include the date in the end time
-						: booking.TimeSlot.EndTime.ToString("HH:mm"); // Otherwise, just show the time for the end time
-				}
-				<time class="booking-item-timeslot">@(startTime)—@(endTime)</time>
-				@if (booking.Comment != null)
-				{
-				<p class="booking-item-comment">"@(booking.Comment)"</p>
-				}
+<div class="bookings-container">
+	<div class="bookings-header">
+		<h1>Bookings</h1>
+		<form class="d-flex" method="post" asp-page-handler="SearchTerm">
+			<div class="input-group">
+				<input class="form-control form-control-lg" type="search" asp-for="SearchTerm" placeholder="Search member ID" aria-label="Search">
+				<button class="btn btn-primary" type="submit">
+					<i class="fa fa-search"></i>
+				</button>
 			</div>
-		</a>
-	</li>
-}
-</ul>
-
+		</form>
+	</div>
+	<ul class="booking-list">
+	@foreach (Booking booking in Model.Bookings)
+	{
+		<li>
+			<a asp-page="/BookingDetail" asp-route-id="@booking.Id" class="booking-item">
+				<img src="~/images/room.jpg" class="booking-item-image" alt="Room Image" />
+				<div class="booking-item-content">
+					<h2 class="booking-room-name">
+					@for (int i = 0; i < Model.MeetingRooms.Count; i++)
+					{
+						if (Model.MeetingRooms[i].RoomId == booking.RoomId)
+						{
+							@Model.MeetingRooms[i].Name
+						}
+					}
+					</h2>
+					@{
+						string startTime = booking.TimeSlot.StartTime.ToString("MMMM d, HH:mm");
+						string endTime = DateTime.Compare(booking.TimeSlot.StartTime.Date, booking.TimeSlot.EndTime.Date) < 0
+							? booking.TimeSlot.EndTime.ToString("MMMM d, HH:mm") // If the end time is on a different day than the start time, include the date in the end time
+							: booking.TimeSlot.EndTime.ToString("HH:mm"); // Otherwise, just show the time for the end time
+					}
+					<time class="booking-item-timeslot">@(startTime)—@(endTime)</time>
+					@if (booking.Comment != null)
+					{
+					<p class="booking-item-comment">"@(booking.Comment)"</p>
+					}
+				</div>
+			</a>
+		</li>
+	}
+	</ul>
+</div>

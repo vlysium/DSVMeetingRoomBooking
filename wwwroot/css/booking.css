@@ -3,6 +3,9 @@
   display: grid;
   grid-template-columns: repeat(1, 1fr);
   gap: 1rem;
+  padding: 1.5rem;
+  max-width: 75rem;
+  margin-inline: auto;
 
   @media (min-width: 768px) {
     grid-template-columns: repeat(2, 1fr);
@@ -94,6 +97,26 @@
 }
 /* #endregion booking form*/
 /* #region bookings list */
+.bookings-container {
+  padding: 1.5rem;
+}
+
+.bookings-header {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+
+  @media (min-width: 768px) {
+    grid-template-columns: 1fr 20rem;
+  }
+}
+
+#SearchTerm + .btn {
+  padding: 1rem 1.25rem;
+}
+
 .booking-list {
   list-style: none;
   padding-left: 0;
@@ -155,6 +178,9 @@
   display: grid;
   grid-template-columns: repeat(1, 1fr);
   gap: 1rem;
+  padding: 1.5rem;
+  max-width: 75rem;
+  margin-inline: auto;
 
   @media (min-width: 768px) {
     grid-template-columns: repeat(2, 1fr);

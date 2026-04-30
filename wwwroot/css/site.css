@@ -31,6 +31,22 @@ img {
   object-fit: cover;
 }
 
+h1 {
+  font-size: calc(1.475rem + 2.7vw);
+  font-weight: 300;
+  margin-bottom: 0;
+}
+
+.nav-link {
+  color: black;
+  font-weight: 700;
+  text-underline-offset: 0.5rem;
+
+  &:hover, &:focus {
+    text-decoration: underline;
+  }
+}
+
 .btn {
   position: relative;
   background-color: transparent;
@@ -95,6 +111,10 @@ img {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem --color-light-blue;
 }
 
+.form-control {
+  border-radius: 0;
+}
+
 /*HEADER_______________________________________*/
 .header {
   background-color: white;
@@ -103,10 +123,19 @@ img {
   z-index: 1000;
 }
 
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+  padding-inline: 1.5rem;
+}
+
 .logo {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 0;
   margin: 0;
   color: var(--color-dark-blue);
 
@@ -114,18 +143,23 @@ img {
     font-size: 3rem;
     font-weight: 700;
     line-height: 1;
+    letter-spacing: 0.075em;
   }
 
   & span:nth-child(2) {
     font-size: 0.675rem;
     font-weight: 500;
+    letter-spacing: -0.08em;
+  }
 
+  &:hover, &:focus {
+    color: var(--color-dark-blue);
   }
 }
 
 /*FOOTER_______________________________________*/
 footer {
-  background-color: var(--color-blue);
+  background-color: var(--color-dark-blue);
   color: var(--lightgrey) !important;
   margin-top: auto;
 }
