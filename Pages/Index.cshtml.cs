@@ -41,13 +41,13 @@ namespace DSVMeetingRoomBooking.Pages
         public List<Equipment> SelectedEquipment { get; set; } = new List<Equipment>();
 
         [BindProperty(SupportsGet = true)]
-        public DateTimeOffset SelectedDay { get; set; }
+        public DateTime SelectedDay { get; set; }
 
         [BindProperty(SupportsGet = true)]
-        public DateTimeOffset TimeStart { get; set; }
+        public DateTime TimeStart { get; set; }
 
         [BindProperty(SupportsGet = true)]
-        public DateTimeOffset TimeEnd { get; set; }
+        public DateTime TimeEnd { get; set; }
 
         public IndexModel(MeetingRoomService meetingRoomService, BookingService bookingService)
         {
@@ -58,12 +58,20 @@ namespace DSVMeetingRoomBooking.Pages
 
         public void OnGet(string selectedCapacity, List<Equipment> selectedEquipment, string selectedDay, string timeStart, string timeEnd)
         {
+			TimeZoneInfo tz = TimeZoneInfo.FindSystemTimeZoneById("Europe/Copenhagen"); // Band-aid fix for timezone issues for now
+
             SelectedCapacity = selectedCapacity ?? "all"; // Default to "all" if no capacity is selected
             SelectedEquipment = selectedEquipment;
 
-            SelectedDay = string.IsNullOrEmpty(selectedDay) ? DateTimeOffset.UtcNow.Date : DateTimeOffset.Parse(selectedDay); // Default to current day if no date is selected on first load
-            TimeStart = string.IsNullOrEmpty(timeStart) ? DateTimeOffset.UtcNow : DateTimeOffset.Parse(timeStart); // Default to current time if no start time is selected on first load
-            TimeEnd = string.IsNullOrEmpty(timeEnd) ? DateTimeOffset.UtcNow.AddHours(1) : DateTimeOffset.Parse(timeEnd); // Default to one hour from now if no end time is selected on first load
+            SelectedDay = string.IsNullOrEmpty(selectedDay) // Default to current day if no date is selected on first load
+                ? TimeZoneInfo.ConvertTime(DateTime.Now.Date, tz)
+                : DateTime.Parse(selectedDay);
+            TimeStart = string.IsNullOrEmpty(timeStart) // Default to current time if no start time is selected on first load
+                ? TimeZoneInfo.ConvertTime(DateTime.Now, tz)
+                : DateTime.Parse(timeStart);
+            TimeEnd = string.IsNullOrEmpty(timeEnd) // Default to one hour from now if no end time is selected on first load
+                ? TimeZoneInfo.ConvertTime(DateTime.Now.AddHours(1), tz)
+                : DateTime.Parse(timeEnd);
 
             MeetingRooms = _meetingRoomService.FilterMeetingRooms(SelectedCapacity, SelectedEquipment);
             ShowRoomAvailability();
