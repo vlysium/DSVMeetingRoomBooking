@@ -5,7 +5,7 @@
   ViewData["Title"] = $"Edit Booking {Model.Booking.Id}";
 }
 
-<div class="booking-form-container">
+<section class="booking-form-container">
 	<form method="post" class="booking-form" asp-page-handler="Update">
 		<h1>Edit booking details: @Model.Booking.Id</h1>
 		<div class="booking-time-period-content">
@@ -53,7 +53,10 @@
 				placeholder="Write an optional comment about the meeting"
 			></textarea>
 		</div>
-		<button type="submit" class="btn btn-primary">Save Changes</button>
+		<button type="submit" class="btn btn-primary">
+			<i class="fa-solid fa-calendar-check"></i>
+			Save Changes
+		</button>
 	</form>
 	<img class="booking-form-image" src="~/images/room.jpg" alt="Room Image" />
-</div>
+</section>

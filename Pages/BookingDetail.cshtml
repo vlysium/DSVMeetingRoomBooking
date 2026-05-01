@@ -7,14 +7,20 @@
 
 @if (Model.IsCreated)
 {
-<div class="alert alert-success" role="alert">
-	Your booking has been successfully created!
+<div class="booking-alert">
+	<p class="alert alert-success" role="alert">
+		<i class="fa-solid fa-check"></i>
+		Your booking has been successfully created!
+	</p>
 </div>
 }
-else if (Model.IsUpdated)
+@if (Model.IsUpdated)
 {
-<div class="alert alert-success" role="alert">
-	Your booking has been successfully updated!
+<div class="booking-alert">
+	<p class="alert alert-success" role="alert">
+		<i class="fa-solid fa-check"></i>
+		Your booking has been successfully updated!
+	</p>
 </div>
 }
 
@@ -39,19 +45,38 @@ else if (Model.IsUpdated)
 		</hgroup>
 		<hgroup class="booking-details-group">
 			<h2 class="booking-details-label">Booking comment</h2>
-			<p class="booking-details-value">"@(Model.Booking.Comment)"</p>
+			@if (string.IsNullOrEmpty(Model.Booking.Comment))
+			{
+				<p class="booking-details-value fst-italic">No comment provided.</p>
+			}
+			else
+			{
+				<p class="booking-details-value">"@(Model.Booking.Comment)"</p>
+			}
 		</hgroup>
 		<div class="booking-details-actions">
-			<a class="btn btn-primary w-100" asp-page="/EditBooking" asp-route-id="@Model.Booking.Id">Edit booking details</a>
-			<button command="show-modal" commandfor="cancel-booking-modal" class="btn btn-danger w-100">Cancel booking</button>
+			<a class="btn btn-primary w-100" asp-page="/EditBooking" asp-route-id="@Model.Booking.Id">
+				<i class="fa-solid fa-pencil"></i>
+				Edit booking details
+			</a>
+			<button command="show-modal" commandfor="cancel-booking-modal" class="btn btn-danger w-100">
+				<i class="fa-solid fa-calendar-minus"></i>
+				Cancel booking
+				</button>
 			<dialog id="cancel-booking-modal">
 				<div class="cancel-booking-modal-content">
 					<h2 class="fs-4">Are you sure you want to cancel this booking?</h2>
 					<p>This action cannot be undone.</p>
 					<div class="cancel-booking-modal-actions">
-						<button type="button" class="btn btn-primary w-100" command="close" commandfor="cancel-booking-modal">Keep my booking</button>
+						<button type="button" class="btn btn-primary w-100" command="close" commandfor="cancel-booking-modal">
+							<i class="fa-solid fa-calendar-check"></i>
+							Keep my booking
+						</button>
 						<form method="post">
-							<button type="submit" class="btn btn-danger w-100">Cancel my booking</button>
+							<button type="submit" class="btn btn-danger w-100">
+								<i class="fa-solid fa-calendar-xmark"></i>
+								Cancel my booking
+								</button>
 						</form>
 					</div>
 				</div>

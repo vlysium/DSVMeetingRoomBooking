@@ -67,7 +67,8 @@ namespace DSVMeetingRoomBooking.Pages
         {
             try
             {
-                TimeSlot timeSlot = new TimeSlot(TimeStart, TimeEnd).FormatTimeSlot(SelectedDay, TimeStart, TimeEnd);
+                TimeSlot timeSlot = new TimeSlot(TimeStart, TimeEnd);
+                timeSlot.FormatTimeSlot(SelectedDay, TimeStart, TimeEnd);
 
                 // Check if the room is available for the selected time slot
                 if (!_bookingService.IsRoomAvailable(RoomId, timeSlot))

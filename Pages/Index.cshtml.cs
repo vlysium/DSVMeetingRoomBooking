@@ -54,16 +54,16 @@ namespace DSVMeetingRoomBooking.Pages
             _meetingRoomService = meetingRoomService;
             _bookingService = bookingService;
             MeetingRooms = meetingRoomService.GetAllMeetingRooms();
-            ShowRoomAvailability();
         }
 
-        public void OnGet(string selectedCapacity, List<Equipment> selectedEquipment, DateTime selectedDay, DateTime timeStart, DateTime timeEnd)
+        public void OnGet(string selectedCapacity, List<Equipment> selectedEquipment, string selectedDay, string timeStart, string timeEnd)
         {
             SelectedCapacity = selectedCapacity ?? "all"; // Default to "all" if no capacity is selected
-            SelectedEquipment = selectedEquipment; 
-            SelectedDay = selectedDay.Date == DateTime.MinValue.Date ? DateOnly.FromDateTime(DateTime.Now).ToDateTime(TimeOnly.MinValue) : selectedDay; // Default to current day if no date is selected
-            TimeStart = timeStart == DateTime.MinValue ? DateTime.Now : timeStart; // Default to current time if no start time is selected
-            TimeEnd = timeEnd == DateTime.MinValue ? DateTime.Now.AddHours(1) : timeEnd; // Default to one hour from now if no end time is selected
+            SelectedEquipment = selectedEquipment;
+
+            SelectedDay = string.IsNullOrEmpty(selectedDay) ? DateTime.Now.Date : DateTime.Parse(selectedDay); // Default to current day if no date is selected on first load
+            TimeStart = string.IsNullOrEmpty(timeStart) ? DateTime.Now : DateTime.Parse(timeStart); // Default to current time if no start time is selected on first load
+            TimeEnd = string.IsNullOrEmpty(timeEnd) ? DateTime.Now.AddHours(1) : DateTime.Parse(timeEnd); // Default to one hour from now if no end time is selected on first load
 
             MeetingRooms = _meetingRoomService.FilterMeetingRooms(SelectedCapacity, SelectedEquipment);
             ShowRoomAvailability();
@@ -71,7 +71,8 @@ namespace DSVMeetingRoomBooking.Pages
 
         private void ShowRoomAvailability()
         {
-            TimeSlot timeSlot = new TimeSlot(TimeStart, TimeEnd).FormatTimeSlot(SelectedDay, TimeStart, TimeEnd);
+            TimeSlot timeSlot = new TimeSlot(TimeStart, TimeEnd);
+            timeSlot.FormatTimeSlot(SelectedDay, TimeStart, TimeEnd);
 
             AvailableRooms = new Dictionary<MeetingRoom, bool>();
             foreach (MeetingRoom room in MeetingRooms)

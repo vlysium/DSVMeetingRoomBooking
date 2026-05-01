@@ -1,11 +1,11 @@
-﻿@page "/bookings"
+﻿@page "/bookings/{EmployeeId?}"
 @using DSVMeetingRoomBooking.Models
 @model DSVMeetingRoomBooking.Pages.BookingsModel
 @{
   ViewData["Title"] = "Bookings";
 }
 
-<div class="bookings-container">
+<section class="bookings-container">
 	<div class="bookings-header">
 		<h1>Bookings</h1>
 		<form class="d-flex" method="post" asp-page-handler="SearchTerm">
@@ -18,6 +18,10 @@
 		</form>
 	</div>
 	<ul class="booking-list">
+	@if (Model.Bookings.Count == 0)
+	{
+		<p class="fst-italic">No bookings found.</p>
+	}
 	@foreach (Booking booking in Model.Bookings)
 	{
 		<li>
@@ -44,10 +48,13 @@
 					{
 					<p class="booking-item-comment">"@(booking.Comment)"</p>
 					}
-					<a asp-page="/BookingDetail" asp-route-id="@booking.Id" class="btn btn-primary mt-auto">View booking</a>
+					<a asp-page="/BookingDetail" asp-route-id="@booking.Id" class="btn btn-primary mt-auto">
+						<i class="fa-solid fa-calendar"></i>
+						View booking
+					</a>
 				</div>
 			</div>
 		</li>
 	}
 	</ul>
-</div>
+</section>
