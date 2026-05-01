@@ -11,13 +11,13 @@ namespace DSVMeetingRoomBooking.Pages
         public required string RoomId { get; set; }
 
         [BindProperty]
-        public required DateTime SelectedDay { get; set; }
+        public required DateTimeOffset SelectedDay { get; set; }
 
         [BindProperty]
-        public required DateTime TimeStart { get; set; }
+        public required DateTimeOffset TimeStart { get; set; }
 
         [BindProperty]
-        public required DateTime TimeEnd { get; set; }
+        public required DateTimeOffset TimeEnd { get; set; }
 
         [BindProperty]
         public required string EmployeeId { get; set; }
@@ -41,9 +41,9 @@ namespace DSVMeetingRoomBooking.Pages
         {
             try
             {
-                SelectedDay = DateTime.Parse(date);
-                TimeStart = DateTime.Parse(timeStart);
-                TimeEnd = DateTime.Parse(timeEnd);
+                SelectedDay = DateTimeOffset.Parse(date);
+                TimeStart = DateTimeOffset.Parse(timeStart);
+                TimeEnd = DateTimeOffset.Parse(timeEnd);
 
                 foreach (var meetingRoom in MeetingRooms)
                 {

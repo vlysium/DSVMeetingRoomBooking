@@ -5,18 +5,18 @@ namespace DSVMeetingRoomBooking.Models
 		/// <summary>
 		/// The start time of the time slot.
 		/// </summary>
-		public DateTime StartTime { get; set; }
+		public DateTimeOffset StartTime { get; set; }
 		/// <summary>
 		/// The end time of the time slot.
 		/// </summary>
-		public DateTime EndTime { get; set; }
+		public DateTimeOffset EndTime { get; set; }
 
 		/// <summary>
 		/// Initializes a new instance of the TimeSlot class with the specified start and end times.
 		/// </summary>
 		/// <param name="startTime">The start time of the time slot.</param>
 		/// <param name="endTime">The end time of the time slot.</param>
-		public TimeSlot(DateTime startTime, DateTime endTime)
+		public TimeSlot(DateTimeOffset startTime, DateTimeOffset endTime)
 		{
 			StartTime = startTime;
 			EndTime = endTime;
@@ -50,9 +50,9 @@ namespace DSVMeetingRoomBooking.Models
 		/// <returns>
 		/// A new TimeSlot object representing the specified date and times in the format `yyyy-MM-dd HH:mm`.
 		/// </returns>
-		public TimeSlot FormatTimeSlot(DateTime date, DateTime startTime, DateTime endTime)
+		public TimeSlot FormatTimeSlot(DateTimeOffset date, DateTimeOffset startTime, DateTimeOffset endTime)
 		{
-			DateTime formattedTimeStart = DateTime.Parse($"{date:yyyy-MM-dd} {startTime:HH:mm}");
+			DateTimeOffset formattedTimeStart = DateTimeOffset.Parse($"{date:yyyy-MM-dd} {startTime:HH:mm}");
 
             // Add a day to the end time if the start time is after the end time,
             // to account for bookings that span past midnight
@@ -61,7 +61,7 @@ namespace DSVMeetingRoomBooking.Models
                 date = date.AddDays(1);
             }
 
-            DateTime formattedTimeEnd = DateTime.Parse($"{date:yyyy-MM-dd} {endTime:HH:mm}");
+            DateTimeOffset formattedTimeEnd = DateTimeOffset.Parse($"{date:yyyy-MM-dd} {endTime:HH:mm}");
             return new TimeSlot(formattedTimeStart, formattedTimeEnd);
 		}
 

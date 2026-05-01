@@ -41,13 +41,13 @@ namespace DSVMeetingRoomBooking.Pages
         public List<Equipment> SelectedEquipment { get; set; } = new List<Equipment>();
 
         [BindProperty(SupportsGet = true)]
-        public DateTime SelectedDay { get; set; }
+        public DateTimeOffset SelectedDay { get; set; }
 
         [BindProperty(SupportsGet = true)]
-        public DateTime TimeStart { get; set; }
+        public DateTimeOffset TimeStart { get; set; }
 
         [BindProperty(SupportsGet = true)]
-        public DateTime TimeEnd { get; set; }
+        public DateTimeOffset TimeEnd { get; set; }
 
         public IndexModel(MeetingRoomService meetingRoomService, BookingService bookingService)
         {
@@ -61,9 +61,9 @@ namespace DSVMeetingRoomBooking.Pages
             SelectedCapacity = selectedCapacity ?? "all"; // Default to "all" if no capacity is selected
             SelectedEquipment = selectedEquipment;
 
-            SelectedDay = string.IsNullOrEmpty(selectedDay) ? DateTime.Now.Date : DateTime.Parse(selectedDay); // Default to current day if no date is selected on first load
-            TimeStart = string.IsNullOrEmpty(timeStart) ? DateTime.Now : DateTime.Parse(timeStart); // Default to current time if no start time is selected on first load
-            TimeEnd = string.IsNullOrEmpty(timeEnd) ? DateTime.Now.AddHours(1) : DateTime.Parse(timeEnd); // Default to one hour from now if no end time is selected on first load
+            SelectedDay = string.IsNullOrEmpty(selectedDay) ? DateTimeOffset.Now.Date : DateTimeOffset.Parse(selectedDay); // Default to current day if no date is selected on first load
+            TimeStart = string.IsNullOrEmpty(timeStart) ? DateTimeOffset.Now : DateTimeOffset.Parse(timeStart); // Default to current time if no start time is selected on first load
+            TimeEnd = string.IsNullOrEmpty(timeEnd) ? DateTimeOffset.Now.AddHours(1) : DateTimeOffset.Parse(timeEnd); // Default to one hour from now if no end time is selected on first load
 
             MeetingRooms = _meetingRoomService.FilterMeetingRooms(SelectedCapacity, SelectedEquipment);
             ShowRoomAvailability();
