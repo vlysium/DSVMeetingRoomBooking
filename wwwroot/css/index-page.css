@@ -177,7 +177,7 @@
 
   @media (min-width: 1200px) {
     display: grid;
-    grid-template-columns: 1fr 2fr;
+    grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
 
     h1 {
@@ -207,6 +207,8 @@
 
   @media (min-width: 1200px) {
     margin: 0;
+    width: max-content;
+    place-self: end;
   }
 }
 
