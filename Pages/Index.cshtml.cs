@@ -61,9 +61,9 @@ namespace DSVMeetingRoomBooking.Pages
             SelectedCapacity = selectedCapacity ?? "all"; // Default to "all" if no capacity is selected
             SelectedEquipment = selectedEquipment;
 
-            SelectedDay = string.IsNullOrEmpty(selectedDay) ? DateTimeOffset.Now.Date : DateTimeOffset.Parse(selectedDay); // Default to current day if no date is selected on first load
-            TimeStart = string.IsNullOrEmpty(timeStart) ? DateTimeOffset.Now : DateTimeOffset.Parse(timeStart); // Default to current time if no start time is selected on first load
-            TimeEnd = string.IsNullOrEmpty(timeEnd) ? DateTimeOffset.Now.AddHours(1) : DateTimeOffset.Parse(timeEnd); // Default to one hour from now if no end time is selected on first load
+            SelectedDay = string.IsNullOrEmpty(selectedDay) ? DateTimeOffset.UtcNow.Date : DateTimeOffset.Parse(selectedDay); // Default to current day if no date is selected on first load
+            TimeStart = string.IsNullOrEmpty(timeStart) ? DateTimeOffset.UtcNow : DateTimeOffset.Parse(timeStart); // Default to current time if no start time is selected on first load
+            TimeEnd = string.IsNullOrEmpty(timeEnd) ? DateTimeOffset.UtcNow.AddHours(1) : DateTimeOffset.Parse(timeEnd); // Default to one hour from now if no end time is selected on first load
 
             MeetingRooms = _meetingRoomService.FilterMeetingRooms(SelectedCapacity, SelectedEquipment);
             ShowRoomAvailability();
