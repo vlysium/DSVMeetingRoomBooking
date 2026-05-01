@@ -64,7 +64,7 @@
         </div>
 
         
-        <div class="index-right-column">
+        <section class="index-right-column">
             <h1>Meeting Rooms</h1>
             <div class="index-booking-time-wrapper">
                 <div class="booking-time-period-content">
@@ -125,6 +125,7 @@
                                 asp-route-timeStart="@Model.TimeStart.ToString("HH:mm", CultureInfo.InvariantCulture)"
                                 asp-route-timeEnd="@Model.TimeEnd.ToString("HH:mm", CultureInfo.InvariantCulture)"
                             >
+                                <i class="fa-solid fa-calendar-plus"></i>
                                 Book now
                             </a>
                             }
@@ -137,7 +138,7 @@
                 </li>
                 }
             </ul>
-        </div>
+        </section>
     </form>
 </div>
    

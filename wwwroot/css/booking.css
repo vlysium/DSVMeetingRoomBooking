@@ -175,6 +175,19 @@
 }
 /* #endregion bookings list */
 /* #region booking details */
+.booking-alert {
+  max-width: 75rem;
+  margin-inline: auto;
+  padding: 1.5rem;
+
+  p {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0;
+  }
+}
+
 .booking-details-container {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
