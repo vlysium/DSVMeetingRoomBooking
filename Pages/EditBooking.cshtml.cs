@@ -14,13 +14,13 @@ namespace DSVMeetingRoomBooking.Pages
         public required string RoomId { get; set; }
 
         [BindProperty]
-        public DateTime SelectedDay { get; set; }
+        public DateTimeOffset SelectedDay { get; set; }
 
         [BindProperty]
-        public DateTime TimeStart { get; set; }
+        public DateTimeOffset TimeStart { get; set; }
 
         [BindProperty]
-        public DateTime TimeEnd { get; set; }
+        public DateTimeOffset TimeEnd { get; set; }
 
         [BindProperty]
         public required string EmployeeId { get; set; }

@@ -30,7 +30,7 @@
 				<div class="booking-item-content">
 					@{
 						string startTime = booking.TimeSlot.StartTime.ToString("MMMM d, HH:mm");
-						string endTime = DateTime.Compare(booking.TimeSlot.StartTime.Date, booking.TimeSlot.EndTime.Date) < 0
+						string endTime = DateTimeOffset.Compare(booking.TimeSlot.StartTime.Date, booking.TimeSlot.EndTime.Date) < 0
 							? booking.TimeSlot.EndTime.ToString("MMMM d, HH:mm") // If the end time is on a different day than the start time, include the date in the end time
 							: booking.TimeSlot.EndTime.ToString("HH:mm"); // Otherwise, just show the time for the end time
 					}
