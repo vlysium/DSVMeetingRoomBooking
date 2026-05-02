@@ -7,46 +7,39 @@
 
 <form method="post">
   
-    <div class="mb-3">
-        <label asp-for="MeetingRoom.Name" class="form-label">Room Name</label>        
-        <input asp-for="MeetingRoom.Name" class="form-control" placeholder="Boardroom A">
-        <span asp-validation-for="MeetingRoom.Name" class="text-danger"></span>
-    </div>
-
+  <div class="mb-3">
+    <label asp-for="MeetingRoom.Name" class="form-label">Room Name</label>
+    <input asp-for="MeetingRoom.Name" class="form-control" placeholder="Boardroom A">
+    <span asp-validation-for="MeetingRoom.Name" class="text-danger"></span>
+  </div>
  
-    <div class="mb-3">
-        <label asp-for="MeetingRoom.Capacity" class="form-label">Capacity</label>
-        <input asp-for="MeetingRoom.Capacity" class="form-control" type="number">
-        <span asp-validation-for="MeetingRoom.Capacity" class="text-danger"></span>
+  <div class="mb-3">
+    <label asp-for="MeetingRoom.Capacity" class="form-label">Capacity</label>
+    <input asp-for="MeetingRoom.Capacity" class="form-control" type="number">
+    <span asp-validation-for="MeetingRoom.Capacity" class="text-danger"></span>
+  </div>
+  <div class="mb-3">
+    <label class="form-label fw-bold">Select Equipment</label>
+    <div class="card p-3 shadow-sm">
+    @foreach (var item in Enum.GetValues(typeof(Equipment)))
+    {
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" name="MeetingRoom.Equipment"
+          value="@item"
+          id="check_@item"
+          @(Model.MeetingRoom?.Equipment != null && Model.MeetingRoom.Equipment.Contains((Equipment)item) ? "checked" : "")
+        />
+        <label class="form-check-label" for="check_@item">@item</label>
+      </div>
+    }
     </div>
-    <div class="mb-3">
-        <label class="form-label fw-bold">Select Equipment</label>
-        <div class="card p-3 shadow-sm">
-            @foreach (var item in Enum.GetValues(typeof(Equipment)))
-            {
-                <div class="form-check">
-                    <input class="form-check-input"
-                           type="checkbox"
-                           name="MeetingRoom.Equipment"
-                           value="@item"
-                           id="check_@item"
-                           @(Model.MeetingRoom?.Equipment != null && Model.MeetingRoom.Equipment.Contains((Equipment)item) ? "checked" : "") />
+  </div>
 
-                    <label class="form-check-label" for="check_@item">
-                        @item
-                    </label>
-                </div>
-            }
-        </div>
-    </div>
+  <div class="mb-3">
+    <label asp-for="MeetingRoom.Description" class="form-label">Description</label>
+    <textarea asp-for="MeetingRoom.Description" class="form-control" rows="3"></textarea>
+    <span asp-validation-for="MeetingRoom.Description" class="text-danger"></span>
+  </div>
   
-    
-    <div class="mb-3">
-        <label asp-for="MeetingRoom.Description" class="form-label">Description</label>
-        <textarea asp-for="MeetingRoom.Description" class="form-control" rows="3"></textarea>
-        <span asp-validation-for="MeetingRoom.Description" class="text-danger"></span>
-    </div>
-
-  
-    <button type="submit" class="btn btn-primary">Create Room</button>
+  <button type="submit" class="btn btn-primary">Create Room</button>
 </form>

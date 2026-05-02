@@ -97,6 +97,17 @@
 }
 /* #endregion booking form*/
 /* #region bookings list */
+.bookings-alert {
+  padding: 1.5rem;
+
+  p {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0;
+  }
+}
+
 .bookings-container {
   padding: 1.5rem;
 }

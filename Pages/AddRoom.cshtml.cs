@@ -16,9 +16,11 @@ namespace DSVMeetingRoomBooking.Pages
         [BindProperty]
         public MeetingRoom MeetingRoom { get; set; }
 
-        public void OnGet()
+        public IActionResult OnGet()
         {
+            return RedirectToPage("/Index");
         }
+
         public IActionResult OnPost()
         {
             if (!ModelState.IsValid)

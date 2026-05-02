@@ -6,139 +6,139 @@
   ViewData["Title"] = "Home page";
 }
 @* <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <form class="d-flex">
-                <div class="input-group">
-                    <input class="form-control form-control-lg" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-primary px-4" type="submit">
-                        <i class="bi bi-search"></i>
-                    </button>
-                </div>
-            </form>
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <form class="d-flex">
+        <div class="input-group">
+          <input class="form-control form-control-lg" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-primary px-4" type="submit">
+            <i class="bi bi-search"></i>
+          </button>
         </div>
+      </form>
     </div>
+  </div>
 </div> *@
 
 
 
 <div class="index-layout">
-    <form method="get" id="filter-form">
-        <div class="index-left-column">
-            <details open class="filter-section">
-                <summary>Filters</summary>
-                @* <p>SEARCH FILTERS COMING UP</p> *@
-                <div class="filter-option-wrapper">
-                    <div>
-                        <p class="filter-options-label">Capacity</p>
-                        <ul class="filter-options">
-                        @foreach (var option in Model.CapacityOptions)
-                        {
-                            <li class="form-check">
-                                <input data-submit-on="change" id="@option.Value" class="form-check-input" type="radio" name="SelectedCapacity"
-                                    value="@option.Value"
-                                    checked="@(Model.SelectedCapacity == option.Value)"
-                                >
-                                <label class="form-check-label" for="@option.Value">@option.Label</label>
-                            </li>
-                        }
-                        </ul>
-                    </div>
-                    <div >
-                        <p class="filter-options-label">Equipment</p>
-                        <ul class="filter-options">
-                        @foreach (var option in Model.EquipmentOptions)
-                        {
-                            <li class="form-check">
-                                <input data-submit-on="change" id="@option.Value" class="form-check-input" type="checkbox" name="SelectedEquipment"
-                                    value="@option.Value"
-                                    checked="@(Model.SelectedEquipment.Contains(option.Value))"
-                                >
-                                <label class="form-check-label" for="@option.Value">@option.Label</label>
-                            </li>
-                        }
-                        </ul>
-                    </div>
-                </div>
-            </details>
+  <form method="get" id="filter-form">
+    <div class="index-left-column">
+      <details open class="filter-section">
+        <summary>Filters</summary>
+        @* <p>SEARCH FILTERS COMING UP</p> *@
+        <div class="filter-option-wrapper">
+          <div>
+            <p class="filter-options-label">Capacity</p>
+            <ul class="filter-options">
+            @foreach (var option in Model.CapacityOptions)
+            {
+              <li class="form-check">
+                <input data-submit-on="change" id="@option.Value" class="form-check-input" type="radio" name="SelectedCapacity"
+                  value="@option.Value"
+                  checked="@(Model.SelectedCapacity == option.Value)"
+                >
+                <label class="form-check-label" for="@option.Value">@option.Label</label>
+              </li>
+            }
+            </ul>
+          </div>
+          <div >
+            <p class="filter-options-label">Equipment</p>
+            <ul class="filter-options">
+            @foreach (var option in Model.EquipmentOptions)
+            {
+              <li class="form-check">
+                <input data-submit-on="change" id="@option.Value" class="form-check-input" type="checkbox" name="SelectedEquipment"
+                  value="@option.Value"
+                  checked="@(Model.SelectedEquipment.Contains(option.Value))"
+                >
+                <label class="form-check-label" for="@option.Value">@option.Label</label>
+              </li>
+            }
+            </ul>
+          </div>
+        </div>
+      </details>
+    </div>
+
+      
+    <section class="index-right-column">
+        <h1>Meeting Rooms</h1>
+        <div class="index-booking-time-wrapper">
+          <div class="booking-time-period-content">
+            <div class="booking-time-date">
+              <label for="selected-day">Day</label>
+              @*
+                Earliest selectable date is current date
+                Latest selectable date is one month from current date
+              *@
+              <input id="selected-day" asp-for="SelectedDay" class="form-control" type="date" data-submit-on="blur"
+                min="@DateTime.Today.ToString("yyyy-MM-dd")" 
+                max="@DateTime.Today.AddMonths(1).ToString("yyyy-MM-dd")"
+              /> 
+            </div>
+            <div class="booking-time-range">
+              <div class="booking-time-start">
+                <label for="time-start">Time Start</label>
+                <input id="time-start" asp-for="TimeStart" class="form-control" type="time" step="60" asp-format="{0:HH:mm}" data-submit-on="blur" />
+              </div>
+              <div class="booking-time-end">
+                <label for="time-end">Time End</label>
+                <input id="time-end" asp-for="TimeEnd" class="form-control" type="time" step="60" asp-format="{0:HH:mm}" data-submit-on="blur" />
+              </div>
+            </div>
+          </div>
         </div>
 
-        
-        <section class="index-right-column">
-            <h1>Meeting Rooms</h1>
-            <div class="index-booking-time-wrapper">
-                <div class="booking-time-period-content">
-                    <div class="booking-time-date">
-                        <label for="selected-day">Day</label>
-                        @*
-                            Earliest selectable date is current date
-                            Latest selectable date is one month from current date
-                        *@
-                        <input id="selected-day" asp-for="SelectedDay" class="form-control" type="date" data-submit-on="blur"
-                            min="@DateTime.Today.ToString("yyyy-MM-dd")" 
-                            max="@DateTime.Today.AddMonths(1).ToString("yyyy-MM-dd")"
-                        /> 
-                    </div>
-                    <div class="booking-time-range">
-                        <div class="booking-time-start">
-                            <label for="time-start">Time Start</label>
-                            <input id="time-start" asp-for="TimeStart" class="form-control" type="time" step="60" asp-format="{0:HH:mm}" data-submit-on="blur" />
-                        </div>
-                        <div class="booking-time-end">
-                            <label for="time-end">Time End</label>
-                            <input id="time-end" asp-for="TimeEnd" class="form-control" type="time" step="60" asp-format="{0:HH:mm}" data-submit-on="blur" />
-                        </div>
-                    </div>
-                </div>
-            </div>
 
+        <ul class="rooms-list">
+          @foreach (MeetingRoom room in Model.MeetingRooms)
+          {
+          <li>
+            <div class="room-card">
+              <img src="~/images/room.webp" class="room-card-image" alt="Room Image" />
+              <div class="room-card-content">
+                <span class="room-card-capacity"><i class="fa-solid fa-users"></i> @room.Capacity</span>
+                <h2 class="room-card-name">@room.Name </h2>
+                <p class="mb-0">@room.Description</p>
+                <p class="mb-0">
+                  <strong>Equipment:</strong>
+                  @if (room.Equipment != null && room.Equipment.Any())
+                  {
+                    @string.Join(", ", room.Equipment)
+                  }
+                  else
+                  {
+                    <span>None</span>
+                  }
+                </p>
 
-            <ul class="rooms-list">
-                @foreach (MeetingRoom room in Model.MeetingRooms)
+                @if (Model.AvailableRooms.ContainsKey(room) && Model.AvailableRooms[room])
                 {
-                <li>
-                    <div class="room-card">
-                        <img src="~/images/room.jpg" class="room-card-image" alt="Room Image" />
-                        <div class="room-card-content">
-                            <span class="room-card-capacity"><i class="fa-solid fa-users"></i> @room.Capacity</span>
-                            <h5 class="room-card-name">@room.Name </h5>
-                            <p class="mb-0">@room.Description</p>
-                            <p class="mb-0">
-                                <strong>Equipment:</strong>
-                                @if (room.Equipment != null && room.Equipment.Any())
-                                {
-                                    @string.Join(", ", room.Equipment)
-                                }
-                                else
-                                {
-                                    <span>None</span>
-                                }
-                            </p>
-
-                            @if (Model.AvailableRooms.ContainsKey(room) && Model.AvailableRooms[room])
-                            {
-                            <div class="room-available">Available</div>
-                            <a class="btn btn-primary mt-auto"
-                                asp-page="/CreateBooking"
-                                asp-route-id="@room.RoomId"
-                                asp-route-date="@Model.SelectedDay.ToString("yyyy-MM-dd")"
-                                asp-route-timeStart="@Model.TimeStart.ToString("HH:mm", CultureInfo.InvariantCulture)"
-                                asp-route-timeEnd="@Model.TimeEnd.ToString("HH:mm", CultureInfo.InvariantCulture)"
-                            >
-                                <i class="fa-solid fa-calendar-plus"></i>
-                                Book now
-                            </a>
-                            }
-                            else
-                            {
-                            <div class="room-unavailable">Unavailable</div>
-                            }
-                        </div>
-                    </div>
-                </li>
+                <div class="room-available">Available</div>
+                <a class="btn btn-primary mt-auto"
+                  asp-page="/CreateBooking"
+                  asp-route-id="@room.RoomId"
+                  asp-route-date="@Model.SelectedDay.ToString("yyyy-MM-dd")"
+                  asp-route-timeStart="@Model.TimeStart.ToString("HH:mm", CultureInfo.InvariantCulture)"
+                  asp-route-timeEnd="@Model.TimeEnd.ToString("HH:mm", CultureInfo.InvariantCulture)"
+                >
+                  <i class="fa-solid fa-calendar-plus"></i>
+                  Book now
+                </a>
                 }
-            </ul>
-        </section>
-    </form>
+                else
+                {
+                <div class="room-unavailable">Unavailable</div>
+                }
+              </div>
+            </div>
+          </li>
+          }
+        </ul>
+    </section>
+  </form>
 </div>
    

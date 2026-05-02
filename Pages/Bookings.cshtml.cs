@@ -9,6 +9,9 @@ namespace DSVMeetingRoomBooking.Pages
     {
         [BindProperty]
         public string SearchTerm { get; set; }
+
+        [BindProperty]
+        public bool IsDeleted { get; set; }
         public List<Booking> Bookings { get; set; }
         public List<MeetingRoom> MeetingRooms { get; set; }
         private readonly BookingService _bookingService;
@@ -21,18 +24,14 @@ namespace DSVMeetingRoomBooking.Pages
             MeetingRooms = _meetingRoomService.GetAllMeetingRooms();
         }
 
-        public void OnGet(string employeeId)
+        public void OnGet(string employeeId, bool deleted)
         {
+            IsDeleted = deleted;
+
             if (!string.IsNullOrEmpty(employeeId))
             {
                 Bookings = _bookingService.GetBookingsByEmployeeId(employeeId);
             }
-
-            //i bookingrepository skal der laves en GetBookingsByEmployeeId så virker koden.
-            //så skal en funktion skrives (foreach booking...) så brugerens MeetingRooms gøres til en liste
-            //der der kan bruges til visning i bookings.cshtml
-            
-         
         }
 
         public IActionResult OnPostSearchTerm()

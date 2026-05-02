@@ -5,6 +5,16 @@
   ViewData["Title"] = "Bookings";
 }
 
+@if (Model.IsDeleted)
+{
+<div class="bookings-alert">
+	<p class="alert alert-success" role="alert">
+		<i class="fa-solid fa-check"></i>
+		Your booking has been successfully cancelled!
+	</p>
+</div>
+}
+
 <section class="bookings-container">
 	<div class="bookings-header">
 		<h1>Bookings</h1>
@@ -26,7 +36,7 @@
 	{
 		<li>
 			<div class="booking-item">
-				<img src="~/images/room.jpg" class="booking-item-image" alt="Room Image" />
+				<img src="~/images/room.webp" class="booking-item-image" alt="Room Image" />
 				<div class="booking-item-content">
 					@{
 						string startTime = booking.TimeSlot.StartTime.ToString("MMMM d, HH:mm");
