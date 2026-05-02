@@ -7,6 +7,5 @@ namespace DSVMeetingRoomBooking.Repositories
 		public List<MeetingRoom> GetAllMeetingRooms();
 		public MeetingRoom GetMeetingRoomById(string id);
 		public void AddRoom(MeetingRoom meetingRoom);
-	
     }
 }

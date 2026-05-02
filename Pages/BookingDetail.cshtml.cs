@@ -29,11 +29,12 @@ namespace DSVMeetingRoomBooking.Pages
         }
         public IActionResult OnGet(string id, bool created, bool updated)
         {
+            IsCreated = created;
+            IsUpdated = updated;
+            
             try
             {
                 Booking = _bookingService.GetBooking(id);
-                IsCreated = created;
-                IsUpdated = updated;
                 MeetingRoom = _meetingRoomService.GetMeetingRoomById(Booking.RoomId);
                 return Page();
             }
@@ -48,7 +49,7 @@ namespace DSVMeetingRoomBooking.Pages
             try
             {
                 _bookingService.DeleteBooking(Booking.Id);
-                return RedirectToPage("/Index");
+                return RedirectToPage("/Bookings", new { deleted = true });
             }
             catch (Exception)
             {
