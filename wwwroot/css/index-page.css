@@ -274,34 +274,48 @@
 
 .room-available,
 .room-unavailable {
+  position: relative;
   font-weight: 500;
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
+  font-size: 1.25rem;
+  padding-left: 1.5rem;
 
-  &::before {
+  &::before, &::after {
     content: "";
-    display: inline-block;
+    position: absolute;
+    top: 50%;
+    left: 0.5rem;
     height: 0.5rem;
     width: 0.5rem;
     border-radius: 50%;
+    transform: translateY(-50%);
+  }
+
+  &::after {
+    animation: pulse 2s infinite;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: translateY(-50%) scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-50%) scale(2.5);
+    opacity: 0;
   }
 }
 
 .room-available {
-  font-size: 1.25rem;
   color: rgba(var(--bs-success-rgb), var(--bs-bg-opacity, 1));
-  padding-left: 0.25rem;
 
-  &::before {
+  &::before, &::after {
     background-color: rgba(var(--bs-success-rgb), var(--bs-bg-opacity, 1));
   }
 }
 
 .room-unavailable {
-  font-size: 1.25rem;
   color: rgba(var(--bs-danger-rgb), var(--bs-bg-opacity, 1));
-  padding-left: 0.25rem;
 
   &::before {
     background-color: rgba(var(--bs-danger-rgb), var(--bs-bg-opacity, 1));
