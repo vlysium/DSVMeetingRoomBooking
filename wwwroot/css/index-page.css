@@ -288,9 +288,10 @@
     width: 0.5rem;
     border-radius: 50%;
     transform: translateY(-50%);
+    pointer-events: none;
   }
 
-  &::after {
+  &::before {
     animation: pulse 2s infinite;
   }
 }
@@ -317,7 +318,7 @@
 .room-unavailable {
   color: rgba(var(--bs-danger-rgb), var(--bs-bg-opacity, 1));
 
-  &::before {
+  &::after {
     background-color: rgba(var(--bs-danger-rgb), var(--bs-bg-opacity, 1));
   }
 }
