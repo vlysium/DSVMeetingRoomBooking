@@ -11,7 +11,7 @@ services:
     volumes:
       - app_data:/app/Data
     restart: unless-stopped
-    mem_limit: 256m
+    mem_limit: 96m
 
 # use reverse proxy container on cloud server
 networks:
